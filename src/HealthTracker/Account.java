@@ -1,14 +1,18 @@
 package HealthTracker;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +66,6 @@ public class Account extends Application {
 
 
         ((Group)scene.getRoot()).getChildren().add(rect);
-        //((Group)scene.getRoot()).getChildren().add(vbox2);
         ((Group)scene.getRoot()).getChildren().add(title);
         ((Group)scene.getRoot()).getChildren().add(header);
         ((Group)scene.getRoot()).getChildren().add(textField);
@@ -326,7 +329,7 @@ public class Account extends Application {
         firstNameField.getStyleClass().add("firstNameField");
         ((Group)scene3.getRoot()).getChildren().add(firstNameField);
 
-        Text lastName = new Text("First Name:");
+        Text lastName = new Text("Last Name:");
         lastName.getStyleClass().add("lastName");
         ((Group)scene3.getRoot()).getChildren().add(lastName);
 
@@ -334,6 +337,58 @@ public class Account extends Application {
         lastNameField.getStyleClass().add("lastNameField");
         ((Group)scene3.getRoot()).getChildren().add(lastNameField);
 
+        Text height = new Text("Height: ");
+        height.getStyleClass().add("height");
+        ((Group)scene3.getRoot()).getChildren().add(height);
+
+        TextField heightField = new TextField();
+        // force the field to be numeric only - solution found on stackExchange
+        heightField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    heightField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        heightField.setPrefWidth(70);
+        heightField.getStyleClass().add("heightField");
+        ((Group)scene3.getRoot()).getChildren().add(heightField);
+
+        ComboBox<String> heightMetric = new ComboBox<String>();
+        boolean cm = heightMetric.getItems().add("cm");
+        boolean inches = heightMetric.getItems().add("inches");
+        heightMetric.setPrefWidth(70);
+        heightMetric.getStyleClass().add("heightMetric");
+        ((Group)scene3.getRoot()).getChildren().add(heightMetric);
+
+
+        Text weight = new Text("Weight: ");
+        weight.getStyleClass().add("weight");
+        ((Group)scene3.getRoot()).getChildren().add(weight);
+
+        TextField weightField = new TextField();
+        // force the field to be numeric only - solution found on stackExchange
+        weightField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    weightField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        weightField.setPrefWidth(70);
+        weightField.getStyleClass().add("weightField");
+        ((Group)scene3.getRoot()).getChildren().add(weightField);
+
+        ComboBox<String> weightMetric = new ComboBox<>();
+        boolean kg = weightMetric.getItems().add("kg");
+        boolean lbs = weightMetric.getItems().add("lbs");
+        weightMetric.setPrefWidth(70);
+        weightMetric.getStyleClass().add("weightMetric");
+        ((Group)scene3.getRoot()).getChildren().add(weightMetric);
 
 
 
@@ -343,7 +398,7 @@ public class Account extends Application {
          *
          **************************************************************************************************************/
 
-        primaryStage.setScene(scene);
+        primaryStage.setScene(scene3);
         primaryStage.getScene().getStylesheets().add(
                 getClass().getResource("styles.css").toExternalForm());
         primaryStage.show();
@@ -425,7 +480,7 @@ public class Account extends Application {
                     //Got this formula for an email pattern from stack exchange- checks string for email pattern.
                     Matcher matcher = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
                             Pattern.CASE_INSENSITIVE).matcher(emailEntered);
-                    if(matcher.find() == false){
+                    if(!matcher.find()){
                         Button errorWindow = new Button("The email is not a valid format, please enter again.");
                         errorWindow.getStyleClass().add("errorWindow2");
                         errorWindow.setPrefWidth(250);

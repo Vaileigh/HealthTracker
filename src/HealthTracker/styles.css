@@ -156,3 +156,51 @@
     -fx-translate-x: 290;
     -fx-translate-y: 300;
 }
+.firstName {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 160;
+}
+.firstNameField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 170;
+}
+.lastName {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 210;
+}
+.lastNameField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 220;
+}
+.height {
+     -fx-font-family: Ariel;
+     -fx-font-size: 14px;
+     -fx-translate-x: 130;
+     -fx-translate-y: 260;
+ }
+ .heightField {
+     -fx-translate-x: 130;
+     -fx-translate-y: 270;
+ }
+ .heightMetric {
+     -fx-translate-x: 210;
+     -fx-translate-y: 270;
+ }
+ .weight {
+     -fx-font-family: Ariel;
+     -fx-font-size: 14px;
+     -fx-translate-x: 130;
+     -fx-translate-y: 310;
+ }
+ .weightField {
+     -fx-translate-x: 130;
+     -fx-translate-y: 320;
+ }
+ .weightMetric {
+     -fx-translate-x: 210;
+     -fx-translate-y: 320;
+ }
