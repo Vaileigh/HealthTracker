@@ -1,0 +1,206 @@
+
+
+/*
+.button {
+  -fx-background-color: red;
+  -fx-border: none;
+  -fx-color: blue;
+  -fx-width: 100px;
+  -fx-padding: 5px 10px;
+  -fx-text-align: center;
+  -fx-text-decoration: none;
+  -fx-display: inline-block;
+  -fx-font-size: 10px;
+  -fx-font-family: fantasy;
+  -fx-cursor: pointer;
+  -fx-effect: dropshadow(one-pass-box, grey, 0, 0, 0, 5);
+}
+
+.button1:pressed {
+	-fx-background-color: blue;
+	-fx-translate-x: 150;
+	-fx-translate-y: 103;
+	-fx-effect: dropshadow(one-pass-box, grey, 5, 0, 0, 2);
+}
+
+.button2:pressed {
+	-fx-background-color: blue;
+	-fx-translate-x: 150;
+	-fx-translate-y: 303;
+	-fx-effect: dropshadow(one-pass-box, grey, 5, 0, 0, 2);
+}
+*/
+.topBorder{
+	-fx-fill: black;
+}
+.logInButton {
+    //-fx-background-color: #1be4f2;
+    -fx-font-size: 12pt;
+    -fx-translate-x: 130;
+    -fx-translate-y: 280;
+}
+
+.createAccButton {
+    //-fx-background-color: #1be4f2;
+    -fx-font-size: 12pt;
+    -fx-translate-x: 130;
+    -fx-translate-y: 370;
+}
+.headerL {
+    -fx-font-family: Ariel;
+    -fx-text-alignment: center;
+    -fx-fill: white;
+    -fx-font-size: 50px;
+    -fx-translate-x: 210;
+    -fx-translate-y: 65;
+}
+
+.title {
+    -fx-font-family: Ariel;
+    -fx-text-alignment: center;
+    -fx-fill: Orange;
+    -fx-font-size: 50px;
+    -fx-translate-x: 20;
+    -fx-translate-y: 65;
+}
+
+.textbox1 {
+    -fx-translate-x: 130;
+    -fx-translate-y: 200;
+    -fx-width: 100px;
+
+}
+
+.textbox2 {
+    -fx-translate-x: 130;
+    -fx-translate-y: 250;
+    -fx-width: 100px;
+
+}
+.userField {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 190;
+}
+
+.passField {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 240;
+}
+
+.errorWindow {
+    -fx-font-family: Ariel;
+    -fx-font-size: 20px;
+    -fx-fill: grey;
+    -fx-translate-x: 80;
+    -fx-translate-y: 250;
+}
+
+
+.boldTopOfPage {
+    -fx-font-family: Ariel;
+    -fx-font-size: 23px;
+    -fx-translate-x: 120;
+    -fx-translate-y: 130;
+    -fx-font-weight: bold;
+}
+
+.enterUsername {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 190;
+}
+.enterPassword {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 240;
+}
+.checkButton {
+    -fx-translate-x: 290;
+    -fx-translate-y: 200;
+}
+.passwordTextField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 250;
+    -fx-width: 100px;
+}
+.passwordCheckButton {
+    -fx-translate-x: 290;
+    -fx-translate-y: 250;
+    -fx-width: 100px;
+}
+.enterEmail {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 290;
+}
+.errorWindow2 {
+    -fx-font-family: Ariel;
+    -fx-font-size: 20px;
+    -fx-fill: grey;
+    -fx-translate-x: 90;
+    -fx-translate-y: 200;
+}
+.emailTextField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 300;
+    -fx-width: 100px;
+}
+.emailCheckButton {
+    -fx-translate-x: 290;
+    -fx-translate-y: 300;
+}
+.firstName {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 160;
+}
+.firstNameField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 170;
+}
+.lastName {
+    -fx-font-family: Ariel;
+    -fx-font-size: 14px;
+    -fx-translate-x: 130;
+    -fx-translate-y: 210;
+}
+.lastNameField {
+    -fx-translate-x: 130;
+    -fx-translate-y: 220;
+}
+.height {
+     -fx-font-family: Ariel;
+     -fx-font-size: 14px;
+     -fx-translate-x: 130;
+     -fx-translate-y: 260;
+ }
+ .heightField {
+     -fx-translate-x: 130;
+     -fx-translate-y: 270;
+ }
+ .heightMetric {
+     -fx-translate-x: 210;
+     -fx-translate-y: 270;
+ }
+ .weight {
+     -fx-font-family: Ariel;
+     -fx-font-size: 14px;
+     -fx-translate-x: 130;
+     -fx-translate-y: 310;
+ }
+ .weightField {
+     -fx-translate-x: 130;
+     -fx-translate-y: 320;
+ }
+ .weightMetric {
+     -fx-translate-x: 210;
+     -fx-translate-y: 320;
+ }
