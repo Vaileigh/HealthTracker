@@ -15,7 +15,7 @@ public class Groups extends Application {
 //        Scene scene = new Scene(root);
 //        primaryStage.setTitle("Tracker");
 //        primaryStage.setScene(scene);
-//        // primaryStage.setScene(new Scene(root, 400, 700));
+//        primaryStage.setScene(new Scene(root, 400, 700));
 //        primaryStage.show();
         Parent root = FXMLLoader.load(getClass().getResource("groups.fxml"));
         primaryStage.setTitle("TRACK");
