@@ -1,13 +1,9 @@
 package HealthTracker;
 
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,17 +11,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.io. * ;
+import java.util.stream.Collectors;
 
 public class GroupsController implements Initializable{
     @FXML
@@ -58,6 +52,13 @@ public class GroupsController implements Initializable{
     private VBox content_group;
 
     @FXML
+    private VBox content_vbox;
+    @FXML
+    private VBox myGroups_vbox;
+    @FXML
+    private VBox allGroups_vbox;
+
+    @FXML
     private VBox content_setting;
 
     @FXML
@@ -71,48 +72,48 @@ public class GroupsController implements Initializable{
     private VBox layout;
     private VBox pre_layout;
 
-    private List<GroupsModel> group = new ArrayList<>();
-    private GroupsModel groups_model;
-
-    private List<GroupsModel> getData(){
-        List<GroupsModel> group = new ArrayList<>();
-        GroupsModel groups_model;
-//        try {
-//          File file = new File(System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv");
-//          FileReader fr = new FileReader(file);
-//          BufferedReader br = new BufferedReader(fr);
-//          String line = " ";
-//          String[] tempArr;
-//          while ((line = br.readLine()) != null) {
-//            tempArr = line.split(",");
-//            System.out.println(tempArr[0]);
-//            System.out.println(tempArr[1]);
-//            System.out.println(tempArr[2]);
+//    private List<GroupsModel> group = new ArrayList<>();
+//    private GroupsModel groups_model;
+//
+//    private List<GroupsModel> getData(){
+//        List<GroupsModel> group = new ArrayList<>();
+//        GroupsModel groups_model;
+////        try {
+////          File file = new File(System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv");
+////          FileReader fr = new FileReader(file);
+////          BufferedReader br = new BufferedReader(fr);
+////          String line = " ";
+////          String[] tempArr;
+////          while ((line = br.readLine()) != null) {
+////            tempArr = line.split(",");
+////            System.out.println(tempArr[0]);
+////            System.out.println(tempArr[1]);
+////            System.out.println(tempArr[2]);
+////            groups_model = new GroupsModel();
+////            groups_model.setName(tempArr[0]);
+////            groups_model.setDescription(tempArr[1]);
+////            groups_model.setImg(tempArr[2]);
+////
+////            group.add(groups_model);
+////
+////          }
+////          br.close();
+////        }
+////        catch(IOException ioe) {
+////          ioe.printStackTrace();
+////        }
+//
+//        for (int i = 0; i<20; i++){
 //            groups_model = new GroupsModel();
-//            groups_model.setName(tempArr[0]);
-//            groups_model.setDescription(tempArr[1]);
-//            groups_model.setImg(tempArr[2]);
+//            groups_model.setName("Group #");
+//            groups_model.setDescription("Help you reach your fitness goals with expertly designed workouts from our world-class Trainers");
+//            groups_model.setImg("../Img/donkey.jpg");
 //
 //            group.add(groups_model);
+//        }
 //
-//          }
-//          br.close();
-//        }
-//        catch(IOException ioe) {
-//          ioe.printStackTrace();
-//        }
-
-        for (int i = 0; i<20; i++){
-            groups_model = new GroupsModel();
-            groups_model.setName("Group #");
-            groups_model.setDescription("Help you reach your fitness goals with expertly designed workouts from our world-class Trainers");
-            groups_model.setImg("../Img/donkey.jpg");
-
-            group.add(groups_model);
-        }
-
-        return group;
-    }
+//        return group;
+//    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -128,57 +129,209 @@ public class GroupsController implements Initializable{
         content_group.setVisible(false);
         content_setting.setVisible(false);
 
-        group.addAll(getData());
+        // group.addAll(getData());
         // System.out.println(group.get(0).getName());
-        //String csvFile = System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv";
-        //read(csvFile);
+        String allGroups = System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv";
+        String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroupData.csv";
+        // read(csvFile);
+
+        File userFile = new File(userGroups);
+        String[] user_groups;
+        String line = " ";
+        try {
+            FileReader userFileReader = new FileReader(userFile);
+            BufferedReader userBufferedReader = new BufferedReader(userFileReader);
+            line = userBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        user_groups = line.split("\n");
+
+
+
+
+
+        try {
+            File file = new File(allGroups);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            line = " ";
+            String[] tempArr;
+            int id = 0;
+            String groupName, groupInfo, groupImg;
+            int groupMember = 0, groupMax = 0;
+            groupName = "null";
+            groupInfo = "null";
+            groupImg = "src/Img/profile.png";
+
+
+            while ((line = bufferedReader.readLine()) != null) {
+                tempArr = line.split(",");
+
+                for(int i = 0; i < tempArr.length; i++){
+                    switch (i){
+                        case 0:
+                            groupName = tempArr[i];
+                            break;
+                        case 1:
+                            groupInfo = tempArr[i];
+                            break;
+                        case 2:
+                            groupImg = tempArr[i];
+                            break;
+                        case 3:
+                            groupMember = Integer.parseInt(tempArr[i]);
+                            break;
+                        default:
+                            groupMax = Integer.parseInt(tempArr[i]);
+                            break;
+                    }
+                }
+                id++;
+
+//                System.out.println("He: "+groupName+" "+groupInfo+" "+groupImg);
+                // for (int i = 0; i<10; i++)
+                setAllGroup(groupName, groupImg, id, groupInfo, user_groups, groupMember, groupMax);
+
+
+            }
+
+            bufferedReader.close();
+        }
+        catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+        // Create a HBox
+//        for (int i=0; i<10; i++){
+//            HBox hBox = new HBox();
+//            hBox.setId("hBox1");
+//            ImageView imageView = new ImageView();
+//            imageView.setFitHeight(60);
+//            imageView.setFitWidth(60);
+//            File file = new File("src/Img/profile.png");
+//            Image image = new Image(file.toURI().toString());
+//            imageView.setImage(image);
+//            HBox.setMargin(imageView, new Insets(5, 5, 5, 5));
+//            imageView.setId("hBox1_imageView");
+//            hBox.getChildren().add(imageView);
+//            VBox vBox = new VBox();
+//            vBox.setId("hBox1_vBox");
+//            Text name = new Text("Group 2");
+//            name.setStyle("-fx-font-size: 14;");
+//            vBox.getChildren().add(name);
+//            Text detail = new Text("Happy Meal Happy Meal Happy Meal Happy Meal Happy Meal ");
+//            detail.setWrappingWidth(317);
+//            vBox.getChildren().add(detail);
+//            hBox.getChildren().add(vBox);
+//            content_vbox.getChildren().add(hBox);
+//        }
+
+
+
 
 
         ///String currentDirectory = System.getProperty("user.dir");
         //System.out.println("The current working directory is " + currentDirectory);
 
-        int column = 0;
-        int row = 0;
-        try{
-            for (int i = 0; i < group.size(); i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-
-                fxmlLoader.setLocation(getClass().getResource("../HealthTracker/groups_item.fxml"));
-                groupsItemController.setData(group.get(i));
-                fxmlLoader.setController(groupsItemController);
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                group_grid.add(anchorPane, column, row++);
-                GridPane.setMargin(anchorPane, new Insets(10));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        int column = 0;
+//        int row = 0;
+//        try{
+//            for (int i = 0; i < group.size(); i++){
+//                FXMLLoader fxmlLoader = new FXMLLoader();
+//
+//                fxmlLoader.setLocation(getClass().getResource("../HealthTracker/groups_item.fxml"));
+//
+//
+//                AnchorPane anchorPane = fxmlLoader.load();
+//
+//                group_grid.add(anchorPane, column, row++);
+//                GridPane.setMargin(anchorPane, new Insets(10));
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
 
-    public static void read(String csvFile) {
-        try {
-          File file = new File(csvFile);
-          FileReader fr = new FileReader(file);
-          BufferedReader br = new BufferedReader(fr);
-          String line = " ";
-          String[] tempArr;
-          while ((line = br.readLine()) != null) {
-            tempArr = line.split(",");
-            for (String tempStr: tempArr) {
-              System.out.print(tempStr + " ");
+    private void setAllGroup(String groupName, String groupImg, int id, String groupInfo, String[] user_groups, int groupMember, int groupMax){
+        HBox hBox = new HBox();
+        hBox.setId(groupName);
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
+        File imageFile = new File(groupImg);
+        Image image = new Image(imageFile.toURI().toString());
+        imageView.setImage(image);
+        HBox.setMargin(imageView, new Insets(5, 5, 5, 5));
+        hBox.setStyle("-fx-border-color: orange;");
+        hBox.setStyle("-fx-background-color: white;");
+        imageView.setId(id+"_imageView");
+        hBox.getChildren().add(imageView);
+        VBox vBox = new VBox();
+        vBox.setId(id+"_vBox");
+        Text name = new Text(groupName);
+        name.setStyle("-fx-font-size: 14;");
+        vBox.getChildren().add(name);
+        Text detail = new Text(groupInfo);
+        detail.setWrappingWidth(317);
+        vBox.getChildren().add(detail);
+        Text no = new Text(groupMember+"/"+groupMax);
+        // no.setStyle("-fx-padding: 5 5 5 5;");
+        vBox.getChildren().add(no);
+        hBox.getChildren().add(vBox);
+
+        Boolean con = false;
+        if (user_groups.length > 0) {
+            for (String userGroup : user_groups) {
+//                System.out.println("hello : " + groupName + " " + userGroup);
+                if ((groupName.strip()).equals(userGroup.strip())) {
+                    con = true;
+                    break;
+                }
             }
-            System.out.println();
-          }
-          br.close();
         }
-        catch(IOException ioe) {
-          ioe.printStackTrace();
+
+        if (con){
+            myGroups_vbox.getChildren().add(hBox);
+        }else{
+            allGroups_vbox.getChildren().add(hBox);
         }
-      }
+
+        hBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println(hBox.getId());
+            }
+        });
+
+
+    }
+//    public static void read(String csvFile) {
+//        try {
+//          File file = new File(csvFile);
+//          FileReader fr = new FileReader(file);
+//          BufferedReader br = new BufferedReader(fr);
+//          String line = " ";
+//          String[] tempArr;
+//          // String[][] groups = new String[tempArr.length][];
+//          int i = 0;
+//          while ((line = br.readLine()) != null) {
+//            tempArr = line.split(",");
+//            // groups[i][0] = tempArr[0];
+//            for (String tempStr: tempArr) {
+//
+//                System.out.print(tempStr + " ");
+//            }
+//            System.out.println();
+//          }
+//          br.close();
+//        }
+//        catch(IOException ioe) {
+//          ioe.printStackTrace();
+//        }
+//      }
 
     private String getNavName(Button navButton){
         if (navButton == btn_settings){

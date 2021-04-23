@@ -5,13 +5,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GroupsController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GroupsController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="400.0">
          <bottom>
@@ -62,20 +60,30 @@
             </AnchorPane>
          </top>
       </BorderPane>
-      <VBox fx:id="content_group" layoutY="63.0" prefHeight="572.0" prefWidth="406.0">
+      <VBox fx:id="content_group" layoutY="63.0" prefHeight="572.0" prefWidth="405.0">
          <children>
-            <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Groups" wrappingWidth="404.79996337890634">
+            <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="Groups" wrappingWidth="404.79996337890634">
                <font>
                   <Font name="System Italic" size="20.0" />
                </font>
             </Text>
             <ScrollPane fx:id="group_scroll" prefHeight="550.0" prefWidth="406.0">
                <content>
-                  <GridPane fx:id="group_grid" prefHeight="2.0" prefWidth="0.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                  </GridPane>
+                  <VBox fx:id="content_vbox" prefHeight="550.0" prefWidth="406.0" style="-fx-background-color: orange;">
+                     <children>
+                        <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="My Groups" wrappingWidth="404.79996337890634">
+                           <font>
+                              <Font name="System Italic" size="20.0" />
+                           </font>
+                        </Text>
+                        <VBox fx:id="myGroups_vbox" prefHeight="200.0" prefWidth="450.0" />
+                        <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="Explore Groups" wrappingWidth="404.79996337890634">
+                           <font>
+                              <Font name="System Italic" size="20.0" />
+                           </font>
+                        </Text>
+                        <VBox fx:id="allGroups_vbox" prefHeight="200.0" prefWidth="100.0" />
+                     </children></VBox>
                </content>
             </ScrollPane>
          </children>
