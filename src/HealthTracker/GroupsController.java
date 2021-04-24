@@ -390,7 +390,7 @@ public class GroupsController implements Initializable{
 
 
         }
-        System.out.println(content);
+        // System.out.println(content);
 
         File file = new File(allGroups);
         try (FileOutputStream fos = new FileOutputStream(new File(allGroups))) {
