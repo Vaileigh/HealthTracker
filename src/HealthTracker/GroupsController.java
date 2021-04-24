@@ -17,9 +17,12 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 import java.io. * ;
 import java.util.stream.Collectors;
+
+import java.io.FileWriter;
 
 public class GroupsController implements Initializable{
     @FXML
@@ -158,11 +161,12 @@ public class GroupsController implements Initializable{
             line = " ";
             String[] tempArr;
             int id = 0;
-            String groupName, groupInfo, groupImg;
+            String groupName, groupInfo, groupImg, groupStatus;
             int groupMember = 0, groupMax = 0;
             groupName = "null";
             groupInfo = "null";
             groupImg = "src/Img/profile.png";
+            groupStatus = "src/Img/profile.png";
 
 
             while ((line = bufferedReader.readLine()) != null) {
@@ -182,8 +186,11 @@ public class GroupsController implements Initializable{
                         case 3:
                             groupMember = Integer.parseInt(tempArr[i]);
                             break;
-                        default:
+                        case 4:
                             groupMax = Integer.parseInt(tempArr[i]);
+                            break;
+                        default:
+                            groupStatus = tempArr[i];
                             break;
                     }
                 }
@@ -191,7 +198,7 @@ public class GroupsController implements Initializable{
 
 //                System.out.println("He: "+groupName+" "+groupInfo+" "+groupImg);
                 // for (int i = 0; i<10; i++)
-                setAllGroup(groupName, groupImg, id, groupInfo, user_groups, groupMember, groupMax);
+                setAllGroup(groupName, groupImg, id, groupInfo, user_groups, groupMember, groupMax, groupStatus, userGroups, allGroups);
 
 
             }
@@ -255,7 +262,7 @@ public class GroupsController implements Initializable{
 
     }
 
-    private void setAllGroup(String groupName, String groupImg, int id, String groupInfo, String[] user_groups, int groupMember, int groupMax){
+    private void setAllGroup(String groupName, String groupImg, int id, String groupInfo, String[] user_groups, int groupMember, int groupMax, String groupStatus, String userGroups, String allGroups){
         HBox hBox = new HBox();
         hBox.setId(groupName);
         ImageView imageView = new ImageView();
@@ -275,12 +282,14 @@ public class GroupsController implements Initializable{
         name.setStyle("-fx-font-size: 14;");
         vBox.getChildren().add(name);
         Text detail = new Text(groupInfo);
-        detail.setWrappingWidth(317);
+        detail.setWrappingWidth(270);
         vBox.getChildren().add(detail);
-        Text no = new Text(groupMember+"/"+groupMax);
-        // no.setStyle("-fx-padding: 5 5 5 5;");
+        Text no = new Text(groupMember+"/"+groupMax+" | "+groupStatus);
+        //Text status = new Text(groupStatus);
         vBox.getChildren().add(no);
+        //vBox.getChildren().add(status);
         hBox.getChildren().add(vBox);
+
 
         Boolean con = false;
         if (user_groups.length > 0) {
@@ -296,6 +305,38 @@ public class GroupsController implements Initializable{
         if (con){
             myGroups_vbox.getChildren().add(hBox);
         }else{
+            String labels = "Join";
+            Button joinButton = new Button(labels);
+            if (groupMember == groupMax){
+                joinButton.setDisable(true);
+            }
+            hBox.getChildren().add(joinButton);
+            HBox.setMargin(joinButton, new Insets(20, 5, 5, 5));
+            joinButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if(groupStatus.equals("private")){
+                        System.out.println(groupMember);
+                        if (joinButton.getText().equals("Join"))
+                            joinButton.setText("Pending");
+                        else
+                            joinButton.setText("Join");
+                    }else{
+
+                        updateUserGroups(userGroups, hBox);
+                        updateAllGroups(allGroups, hBox);
+                        try {
+                            Thread.sleep(1000);
+                            hBox.getChildren().remove(joinButton);
+                            myGroups_vbox.getChildren().add(hBox);
+                            no.setText(groupMember+1 +"/"+groupMax+" | "+groupStatus);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            });
             allGroups_vbox.getChildren().add(hBox);
         }
 
@@ -307,6 +348,70 @@ public class GroupsController implements Initializable{
         });
 
 
+    }
+
+    private void updateAllGroups(String allGroups, HBox hBox) {
+        // Clone csv
+        String[] rows, cols;
+        String line = " ";
+        try {
+            FileReader userFileReader = new FileReader(allGroups);
+            BufferedReader userBufferedReader = new BufferedReader(userFileReader);
+            line = userBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        rows = line.split("\n");
+        String content = null;
+        for (String row: rows){
+//            System.out.println(row);
+            cols = row.split(",");
+            if (cols[0].equals(hBox.getId())){
+                cols[3] = String.valueOf(Integer.parseInt(cols[3]) + 1);
+                for (int j = 0; j < cols.length; j++){
+                    if (content == null){
+                        content = cols[j];
+                    }else{
+                        if (j == 0){
+                            content = content + cols[j];
+                        }else{
+                            content = content + "," + cols[j];
+                        }
+
+                    }
+                }
+            }else{
+                if (content == null){
+                    content = row;
+                }else{
+                    content = content + "\n" + row;
+                }
+            }
+
+
+        }
+        System.out.println(content);
+
+        File file = new File(allGroups);
+        try (FileOutputStream fos = new FileOutputStream(new File(allGroups))) {
+            fos.write(content.getBytes(StandardCharsets.UTF_8));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateUserGroups(String userGroups, HBox hBox) {
+        File file = new File(userGroups);
+        try (FileOutputStream fos = new FileOutputStream(file, true)) {
+            String content = "\n"+hBox.getId();
+            fos.write(content.getBytes(StandardCharsets.UTF_8));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 //    public static void read(String csvFile) {
 //        try {
