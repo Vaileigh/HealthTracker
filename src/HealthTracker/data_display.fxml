@@ -60,12 +60,15 @@
                 <Font name="System" size = "12.0"/>
             </font>
         </Text>
-        <Text fx:id="noexdata" text="No data to display :(" layoutX="110" layoutY="325" fill="darkgray">
+        <Text fx:id="noexdata" text="No data to display :(" layoutX="120" layoutY="325" fill="darkgray">
             <font>
-                <Font name="System Bold" size="18.0"/>
+                <Font name="System Bold" size="16.0"/>
             </font>
         </Text>
         <ImageView fx:id="ex_chart_display" layoutY="250"/>
         <Button fx:id="swap_btn" text="View Distribution" layoutX="143" layoutY="460" onAction="#swapCharts"/>
-        <Button fx:id="ex_btn" text="Record Exercise" layoutX="143" layoutY="490" onAction="#redirectEx"/>
+        <Button fx:id="ex_btn" text="Record Exercise" layoutX="145" layoutY="520" onAction="#redirectEx"/>
+        <Button fx:id="prev_btn" text="Back" layoutX="20" layoutY="490" onAction="#nav"/>
+        <Button fx:id="next_btn" text="Next" layoutX="340" layoutY="490" onAction="#nav"/>
+        <Button fx:id="reset_btn" text="Reset Date" layoutX="160" layoutY="490" onAction="#nav"/>
 </AnchorPane>
