@@ -3,20 +3,23 @@ package HealthTracker;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Separator;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
@@ -65,31 +68,49 @@ public class DataDisplayController {
     private Button next_btn;
     @FXML
     private Button reset_btn;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private Button btn_group;
+    @FXML
+    private Button btn_workouts;
+    @FXML
+    private Button btn_home;
+    @FXML
+    private Button btn_user;
+    @FXML
+    private Button btn_settings;
 
-    int ex_mode = 2; //determine graph view
+    private final String DAY = "day";
+    private final String WEEK = "week";
+    private int ex_mode = 2; //determine graph view
+
+    //TODO REPLACE
     User me = new User(); //TEMPORARY USER to be replaced with logged in user
-    double calGoal = 100; //TEMPORARY GOAL to be replaced with user goal
+    private double calGoal = 100; //TEMPORARY GOAL to be replaced with user goal
 
-    TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek(); //for getting week of date
-    LocalDate chartView = LocalDate.now(); //the current date at time of use
-    int current = 0; //date modifier for graph manipulation
+    private TemporalField fieldISO = WeekFields.of(Locale.UK).dayOfWeek(); //for getting week of date
+    private LocalDate chartView = LocalDate.now(); //the current date at time of use
 
-    public void initialize() {
+    @FXML
+    private void initialize() {
         DummyData();
         createCalProg(); //creating progress bar from user data
         createBar(rng_cbx.getValue()); //create graph from user data, default is bar chart
         reset_btn.setDisable(true);
+        datePicker.setValue(LocalDate.now());
     }
 
     /***************************************************
      * METHODS FOR CREATING DATA DISPLAY DATA, GRAPHS **
      **************************************************/
-    public void createCalProg() {
+    @FXML
+    private void createCalProg() {
         HashMap<LocalDate, ArrayList<CalDat>> calCount = new HashMap<>();
         double calsTaken = 0;
-        if (rng_cbx.getValue().equals("today"))
+        if (rng_cbx.getValue().equals(DAY))
             calCount = me.getCalData(chartView, chartView);
-        if (rng_cbx.getValue().equals("this week"))
+        if (rng_cbx.getValue().equals(WEEK))
             calCount = me.getCalData(chartView.with(fieldISO, 1),chartView.with(fieldISO, 7));
 
         for (ArrayList<CalDat> cals : calCount.values())
@@ -113,7 +134,8 @@ public class DataDisplayController {
         pb.setProgress(progress);
     }
 
-    public void createPie(String timeframe) {
+    @FXML
+    private void createPie(String timeframe) {
         final int WIDTH = 400;
         final int HEIGHT = 200; //for graph image output
         DefaultPieDataset dataset = new DefaultPieDataset();
@@ -123,12 +145,12 @@ public class DataDisplayController {
             return;
         }
 
-        if (timeframe.equals("this week")) {
+        if (timeframe.equals(WEEK)) {
             LocalDate start = (chartView.with(fieldISO, 1));
             LocalDate end = (chartView.with(fieldISO, 7));
             dataset = formPieData(start, end);
         }
-        if (timeframe.equals("today")) {
+        if (timeframe.equals(DAY)) {
             dataset = formPieData(chartView, chartView);
         }
 
@@ -150,7 +172,8 @@ public class DataDisplayController {
     }
 
     //TODO bar chart needs goal data, not sure how its handled yet
-    public void createBar(String timeframe) {
+    @FXML
+    private void createBar(String timeframe) {
         final int WIDTH = 400;
         final int HEIGHT = 200; //for graph image output
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -160,12 +183,12 @@ public class DataDisplayController {
             return;
         }
 
-        if (timeframe.equals("this week")) {
+        if (timeframe.equals(WEEK)) {
             LocalDate start = (chartView.with(fieldISO, 1));
             LocalDate end = (chartView.with(fieldISO, 7));
             dataset = formBarData(start, end);
         }
-        if (timeframe.equals("today")) {
+        if (timeframe.equals(DAY)) {
             dataset = formBarData(chartView, chartView);
         }
 
@@ -187,7 +210,8 @@ public class DataDisplayController {
         noexdata.setVisible(false);
     }
 
-    public DefaultPieDataset formPieData(LocalDate start, LocalDate end) {
+    @FXML
+    private DefaultPieDataset formPieData(LocalDate start, LocalDate end) {
         DefaultPieDataset dataset = new DefaultPieDataset();
         HashMap<LocalDate, ArrayList<ExDat>> hash = me.getExData(start, end);
 
@@ -207,7 +231,7 @@ public class DataDisplayController {
         }
 
         for (LocalDate date : daysOfWeek) {
-            try {
+            if (hash.get(date) != null) {
                 for (ExDat dat : hash.get(date)) {
                     if (dataset.getKeys().contains(dat.getExerciseType())) {
                         dataset.setValue(dat.getExerciseType(), (Double) dataset.getValue(dat.getExerciseType()) + dat.getDuration());
@@ -215,14 +239,16 @@ public class DataDisplayController {
                         dataset.setValue(dat.getExerciseType(), dat.getDuration());
                     }
                 }
-            } catch (Exception e) {
-                System.out.println(e + ": No data for date (" + date + ")");
+            }
+            else {
+                System.out.println("No data for date (" + date + ")");
             }
         }
         return dataset;
     }
 
-    public DefaultCategoryDataset formBarData(LocalDate start, LocalDate end) {
+    @FXML
+    private DefaultCategoryDataset formBarData(LocalDate start, LocalDate end) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         HashMap<LocalDate, ArrayList<ExDat>> hash = me.getExData(start, end);
 
@@ -242,31 +268,34 @@ public class DataDisplayController {
         }
 
         for (LocalDate date : daysOfWeek) {
-            try {
+            if (hash.get(date) != null) {
                 for (ExDat dat : hash.get(date)) {
                     if (dataset.getColumnKeys().contains(date)) {
-                        dataset.incrementValue(dat.getDuration(), "DURATION", date);
+                        dataset.incrementValue(dat.getDuration(), "DURATION", date.getDayOfWeek());
                     } else {
-                        dataset.setValue(dat.getDuration(), "DURATION", date);
+                        dataset.setValue(dat.getDuration(), "DURATION", date.getDayOfWeek());
                     }
                 }
-            }
-            catch (Exception e) {
-                System.out.println(e + ": No data for date (" + date + ")");
-                dataset.setValue(0, "DURATION", date);
+                }
+            else {
+                System.out.println("No data for date (" + date + ")");
+                int count = dataset.getColumnCount();
+                DayOfWeek day = daysOfWeek.get(count).getDayOfWeek();
+                dataset.setValue(0, "DURATION", day);
                 }
             }
         return dataset;
     }
 
-    public void noData() { //TODO implement for calories
+    @FXML
+    private void noData() {
         noexdata.setVisible(true);
         ex_chart_display.setImage(null);
-        if (rng_cbx.getValue().equals("today")) {
+        if (rng_cbx.getValue().equals(DAY)) {
             noexdata.setX(0);
             noexdata.setText("No data for " + chartView);
         }
-        if (rng_cbx.getValue().equals("this week")) {
+        if (rng_cbx.getValue().equals(WEEK)) {
             noexdata.setX(-40);
             noexdata.setText("No data for " + chartView.with(fieldISO, 1) + "~" + chartView.with(fieldISO, 7));
         }
@@ -276,21 +305,9 @@ public class DataDisplayController {
     /**************************
      * BUTTON HANDLING EVENTS *
      **************************/
-    public void timeChange() {
-        current = 0;
-        chartView = LocalDate.now();
-        String string = rng_cbx.getValue();
-        cal_txt.setText("Your calorie summary for " + string);
-        ex_txt.setText("Your exercise summary for " + string);
-        createCalProg();
-        if (ex_mode == 2) {
-            createBar(rng_cbx.getValue());
-        } else {
-            createPie(rng_cbx.getValue());
-        }
-    }
 
-    public void swapCharts() {
+    @FXML
+    private void swapCharts() {
         if (ex_mode == 1) {
             ex_mode = 2;
             swap_btn.setText("View Distribution");
@@ -302,75 +319,117 @@ public class DataDisplayController {
         }
     }
 
-    public void redirectCal() {
-        System.out.println("Redirect to calories page");
+    @FXML
+    private void redirect(ActionEvent event) {
+        if (event.getSource() == btn_user) {
+            System.out.println("Already on page.");
+            return;
+        }
+        try {
+            Parent newRoot = null;
+            if (event.getSource() == cal_btn) {
+                newRoot = FXMLLoader.load(getClass().getResource("calories.fxml"));
+            }
+            if (event.getSource() == ex_btn) {
+                newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
+            }
+            if (event.getSource() == btn_group) {
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+            }
+            if (event.getSource() == btn_workouts) {
+                newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
+            }
+            if (event.getSource() == btn_home) {
+                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+            }
+            if (event.getSource() == btn_settings) {
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            }
+
+
+            Scene scene = new Scene(newRoot);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        }
+        catch (Exception e) {
+            System.out.println("Could not redirect: " + e);
+        }
     }
 
-    public void redirectEx() {
-        System.out.println("Redirect to exercise page");
-    }
-
-    public void nav(ActionEvent actionEvent) { //this is horrible but i dont care right now
+    @FXML
+    private void nav(ActionEvent actionEvent) {
         if (actionEvent.getSource() == prev_btn) {
-            current--;
-            if (rng_cbx.getValue().equals("today")) {
-                ex_txt.setText("Your exercise summary for " + LocalDate.now().minusDays(Math.abs(current)));
-                ex_txt.setX(-30);
+            if (rng_cbx.getValue().equals(DAY)) {
+                chartView = chartView.minusDays(1);
+            }
+            if (rng_cbx.getValue().equals(WEEK)) {
+                chartView = chartView.minusDays(7);
             }
         }
         if (actionEvent.getSource() == next_btn) {
-            current++;
-            if (rng_cbx.getValue().equals("today")) {
-                ex_txt.setText("Your exercise summary for " + LocalDate.now().plusDays(current));
-                ex_txt.setX(0);
+            if (rng_cbx.getValue().equals(DAY)) {
+                chartView = chartView.plusDays(1);
+            }
+            if (rng_cbx.getValue().equals(WEEK)) {
+                chartView = chartView.plusDays(7);
             }
         }
         if (actionEvent.getSource() == reset_btn) {
-            current = 0;
-            ex_txt.setX(0);
+            chartView = LocalDate.now();
         }
 
-        if (rng_cbx.getValue().equals("this week")) {
-            if (current < 0) {
-                chartView = LocalDate.now().minusDays(Math.abs(current)*7);
+        if (actionEvent.getSource() == datePicker) {
+            LocalDate dateToFind = datePicker.getValue();
+            if (chartView.isAfter(dateToFind)) {
+                int diff = Math.abs((int)(dateToFind.datesUntil(chartView).count()));
+                chartView = chartView.minusDays(diff);
             }
-            if (current > 0) {
-                chartView = LocalDate.now().plusDays(current*7);
+            else {
+                int diff = (int) (chartView.datesUntil(dateToFind).count());
+                chartView = chartView.plusDays(diff);
             }
-            if (current == 0) {
-                chartView = LocalDate.now();
-                ex_txt.setText("Your exercise summary for this week");
+        }
+
+        if (rng_cbx.getValue().equals(DAY)) {
+            if (chartView.equals(LocalDate.now())) {
+                cal_txt.setText("Your calorie summary for today");
+                cal_txt.setX(0);
+                ex_txt.setText("Your exercise summary for today");
+                ex_txt.setX(0);
             }
+            else {
+                ex_txt.setText("Your exercise summary for " + chartView.getMonth() + " " + chartView.getDayOfMonth() + " " + chartView.getYear());
+                ex_txt.setX(-20);
+                cal_txt.setText("Your calorie summary for " + chartView.getMonth() + " " + chartView.getDayOfMonth() + " " + chartView.getYear());
+                cal_txt.setX(-20);
+            }
+        }
+        if (rng_cbx.getValue().equals(WEEK)) {
             LocalDate s = chartView.with(fieldISO, 1);
             LocalDate e = chartView.with(fieldISO, 7);
+            ex_txt.setX(-40);
             ex_txt.setText("Your exercise summary for " +
-                    s + "~" + e);
+                    s.getMonth() + " " + s.getDayOfMonth() + " ~ " + e.getMonth() + " " + e.getDayOfMonth() + " " + e.getYear());
+            cal_txt.setX(-40);
+            cal_txt.setText("Your calorie summary for " +
+                    s.getMonth() + " " + s.getDayOfMonth() + " ~ " + e.getMonth() + " " + e.getDayOfMonth() + " " + e.getYear());
         }
-        if (rng_cbx.getValue().equals("today")) {
-            if (current < 0) {
-                chartView = LocalDate.now().minusDays(Math.abs(current));
-            }
-            if (current > 0) {
-                chartView = LocalDate.now().plusDays(current);
-            }
-            if (current == 0) {
-                chartView = LocalDate.now();
-                ex_txt.setText("Your exercise summary for today");
-            }
-        }
+
         if (swap_btn.getText().equals("View Distribution"))
             createBar(rng_cbx.getValue());
         if (swap_btn.getText().equals("View Progress"))
             createPie(rng_cbx.getValue());
         createCalProg();
-
-        reset_btn.setDisable(current == 0);
+        datePicker.setValue(chartView);
+        reset_btn.setDisable(chartView.equals(LocalDate.now()));
     }
 
     /*******************************
      * TEMPORARY DATA DELETE LATER *
      *******************************/
-    public void DummyData() {
+    @FXML
+    private void DummyData() {
         CalDat cal = new CalDat("Breakfast", 20);
         me.recordCal(cal);
         cal = new CalDat("Breakfast", 30);
@@ -380,6 +439,8 @@ public class DataDisplayController {
         cal = new CalDat(LocalDate.now().minusDays(2), "Lunch", 60);
         me.recordCal(cal);
         cal = new CalDat(LocalDate.now().minusDays(3), "Lunch", 20);
+        me.recordCal(cal);
+        cal = new CalDat(LocalDate.now().minusDays(6), "Lunch", 30);
         me.recordCal(cal);
 
         ExDat ex = new ExDat("Cardio", 30);
