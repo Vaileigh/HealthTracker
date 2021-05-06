@@ -1,6 +1,9 @@
 package HealthTracker;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class User implements Serializable {
@@ -14,6 +17,8 @@ public class User implements Serializable {
     private double startWeight;
     private int verificationCode;
     private boolean verified;
+    private HashMap<LocalDate, ArrayList<CalDat>> calData = new HashMap<>();
+    private HashMap<LocalDate, ArrayList<ExDat>> exData = new HashMap<>();
 
     User(){
         username = "example";
@@ -109,5 +114,67 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void recordCal(CalDat cal) {
+        ArrayList<CalDat> items = calData.get(cal.getDate());
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        items.add(cal);
+        calData.put(cal.getDate(), items);
+    }
+
+    HashMap<LocalDate, ArrayList<CalDat>> getCalData() {
+        return calData;
+    }
+
+    HashMap<LocalDate, ArrayList<CalDat>> getCalData(LocalDate start, LocalDate end) { //allow selected range of days from current day
+        HashMap<LocalDate, ArrayList<CalDat>> returnData = new HashMap<>();
+        LocalDate today = start;
+        int range = start.until(end).getDays()+1;
+        for (int i = 0; i < range; i++) {
+            try {
+                if (calData.get(today) != null) {
+                    returnData.put(today, calData.get(today));
+                }
+            }
+            catch (Exception e){
+                System.out.println(e + ": Data for date (" + today + ")");
+            }
+            today = today.plusDays(1);
+        }
+        return returnData;
+    }
+
+    public void recordEx(ExDat ex) {
+        ArrayList<ExDat> items = exData.get(ex.getDate());
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        items.add(ex);
+        exData.put(ex.getDate(), items);
+    }
+
+    HashMap<LocalDate, ArrayList<ExDat>> getExData() {
+        return exData;
+    }
+
+    HashMap<LocalDate, ArrayList<ExDat>> getExData(LocalDate start, LocalDate end) { //allow selected range of days from current day
+        HashMap<LocalDate, ArrayList<ExDat>> returnData = new HashMap<>();
+        LocalDate today = start;
+        int range = start.until(end).getDays()+1;
+        for (int i = 0; i < range; i++) {
+            try {
+                if (exData.get(today) != null) {
+                    returnData.put(today, exData.get(today));
+                }
+            }
+            catch (Exception e){
+                System.out.println(e + ": Data for date (" + today + ")");
+            }
+            today = today.plusDays(1);
+        }
+        return returnData;
     }
 }
