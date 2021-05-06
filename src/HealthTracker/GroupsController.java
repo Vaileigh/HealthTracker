@@ -120,7 +120,7 @@ public class GroupsController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        String username = "User2";
         navButton = btn_home;
         pre_navButton = btn_home;
         btn_home.setStyle("-fx-background-color: orange;");
@@ -135,23 +135,34 @@ public class GroupsController implements Initializable{
         // group.addAll(getData());
         // System.out.println(group.get(0).getName());
         String allGroups = System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv";
-        String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroupData.csv";
+        //String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroupData.csv";
+        String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroups.csv";
         // read(csvFile);
 
         File userFile = new File(userGroups);
-        String[] user_groups;
+        String[] user_groups = null;
         String line = " ";
-        try {
+//        try {
+//            FileReader userFileReader = new FileReader(userFile);
+//            BufferedReader userBufferedReader = new BufferedReader(userFileReader);
+//            line = userBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+//        } catch(IOException ioe) {
+//            ioe.printStackTrace();
+//        }
+//        user_groups = line.split("\n");
+
+        try{
             FileReader userFileReader = new FileReader(userFile);
             BufferedReader userBufferedReader = new BufferedReader(userFileReader);
-            line = userBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+            while ((line = userBufferedReader.readLine()) != null){
+                user_groups = line.split(",");
+                if ((user_groups[0].strip()).equals(username)){
+                    break;
+                }
+            }
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-        user_groups = line.split("\n");
-
-
-
 
 
         try {
@@ -292,10 +303,10 @@ public class GroupsController implements Initializable{
 
 
         Boolean con = false;
-        if (user_groups.length > 0) {
-            for (String userGroup : user_groups) {
+        if (user_groups != null) {
+            for (int i = 1; i < user_groups.length; i++) {
 //                System.out.println("hello : " + groupName + " " + userGroup);
-                if ((groupName.strip()).equals(userGroup.strip())) {
+                if ((groupName.strip()).equals(user_groups[i].strip())) {
                     con = true;
                     break;
                 }
