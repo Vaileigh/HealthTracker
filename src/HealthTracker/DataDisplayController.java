@@ -219,7 +219,7 @@ public class DataDisplayController {
             return null;
         }
 
-        int range = (int)(start.datesUntil(end).count())+1;
+        int range = 0;/*(int)(start.datesUntil(end).count())+1;*/
         ArrayList<LocalDate> daysOfWeek = new ArrayList<>();
 
         if (range == 1)
@@ -256,7 +256,7 @@ public class DataDisplayController {
             return null;
         }
 
-        int range = (int)(start.datesUntil(end).count())+1;
+        int range = 0;/*(int)(start.datesUntil(end).count())+1;*/
         ArrayList<LocalDate> daysOfWeek = new ArrayList<>();
 
         if (range == 1)
@@ -382,11 +382,11 @@ public class DataDisplayController {
         if (actionEvent.getSource() == datePicker) {
             LocalDate dateToFind = datePicker.getValue();
             if (chartView.isAfter(dateToFind)) {
-                int diff = Math.abs((int)(dateToFind.datesUntil(chartView).count()));
+                int diff = 0;/*Math.abs((int)(dateToFind.datesUntil(chartView).count()));*/
                 chartView = chartView.minusDays(diff);
             }
             else {
-                int diff = (int) (chartView.datesUntil(dateToFind).count());
+                int diff = 0;/*(int) (chartView.datesUntil(dateToFind).count());*/
                 chartView = chartView.plusDays(diff);
             }
         }

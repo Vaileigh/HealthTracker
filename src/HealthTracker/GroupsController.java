@@ -337,10 +337,14 @@ public class GroupsController implements Initializable{
         if (user_groups != null) {
             for (int i = 1; i < user_groups.length; i++) {
 //                System.out.println("hello : " + groupName + " " + userGroup);
+<<<<<<< Updated upstream
                 if ((groupName.strip()).equals(user_groups[i].strip())) {
+=======
+                /*if ((groupName.strip()).equals(userGroup.strip())) {
+>>>>>>> Stashed changes
                     con = true;
                     break;
-                }
+                }*/
             }
         }
 
