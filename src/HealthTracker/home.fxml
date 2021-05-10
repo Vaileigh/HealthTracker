@@ -1,13 +1,93 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="HealthTracker.HomeController"
-            prefHeight="700.0" prefWidth="400.0">
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.DatePicker?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.TextArea?>
+<?import com.gluonhq.charm.glisten.control.Chip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.HomeController">
+    <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+        <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
+            <font>
+                <Font name = "System Bold Italic" size="33.0"/>
+            </font>
+
+        </Text>
+        <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOME">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Text>
+    </AnchorPane>
+    <ImageView layoutX="130" layoutY="130" >
+            <Image url="@profile.png" requestedWidth="140" preserveRatio="true"/>
+    </ImageView>
+    <Text fx:id="name" fill="BLACK" layoutX="105" layoutY="320" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" text="James Wright">
+        <font>
+            <Font name="System Bold" size="36" />
+        </font>
+    </Text>
+    <Text fx:id="about" layoutY="340" layoutX="105" strokeType="OUTSIDE" textAlignment="CENTER" text="kadhnksadsdksnD">
+        <font>
+            <Font name="System" size="12.0" />
+        </font>
+    </Text>
+    <Separator layoutX="8.0" layoutY="360" prefHeight="13.0" prefWidth="379.0" />
+    <ImageView layoutX="250" layoutY="400" style="-fx-background-color: orange;" onMousePressed="#redirect">
+        <Image url="@termsicon.png" requestedWidth="90" preserveRatio="true"/>
+    </ImageView>
+    <Button fx:id="terms" layoutX="270" layoutY="470" onAction="#redirect" text="Terms">
+
+    </Button>
+    <ImageView layoutX="60" layoutY="400" style="-fx-background-color: orange;" onMousePressed="#redirect">
+        <Image url="@supporticon.png" requestedWidth="90" preserveRatio="true"/>
+    </ImageView>
+    <Button fx:id="support" layoutX="60" layoutY="480" onAction="#redirect" text="Support">
+    </Button>
+    <ImageView layoutX="145" layoutY="500" style="-fx-background-color: orange;" onMousePressed="#redirect">
+        <Image url="@closeapp.jpg" requestedWidth="90" preserveRatio="true"/>
+    </ImageView>
+    <Button fx:id="closeApp" layoutX="145" layoutY="590" onAction="#redirect" text="Close App">
+    </Button>
+    <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER" layoutY="636.0">
+        <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="BICYCLE" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
+            <graphic>
+                <FontAwesomeIcon glyphName="USER" size="2em" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GEAR" size="2em" />
+            </graphic>
+        </Button>
+    </AnchorPane>
 
 </AnchorPane>
