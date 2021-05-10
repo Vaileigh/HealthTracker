@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.SettingsController">
    <children>
-      <Pane prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: black;">
+      <Pane prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: black;" >
          <children>
             <Text fill="#f88d00" layoutX="84.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
                <font>
@@ -46,18 +46,18 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Text>
-      <Separator layoutX="8.0" layoutY="273.0" prefHeight="13.0" prefWidth="379.0" />
+      <Separator layoutX="8.0" layoutY="285.0" prefHeight="13.0" prefWidth="379.0" />
       <Chip layoutX="334.0" layoutY="285.0" prefWidth="123.0" style="-fx-background-color: green;">
          <graphic>
             <Image url="@montreal-28-round-mirror-glossy-white-mirror-james-martin-vanities-624641_1024x.jpg" />
          </graphic>
       </Chip>
-      <Text layoutX="12.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LARGER FONT" wrappingWidth="149.0">
+      <Text layoutX="12.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LARGER FONT" wrappingWidth="149.0">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
       </Text>
-      <Separator layoutX="8.0" layoutY="318.0" prefHeight="13.0" prefWidth="379.0" />
+      <Separator layoutX="8.0" layoutY="327.0" prefHeight="13.0" prefWidth="379.0" />
       <Text layoutX="12.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LANGUAGE" wrappingWidth="149.0">
          <font>
             <Font name="System Bold" size="19.0" />
