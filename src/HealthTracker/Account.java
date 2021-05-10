@@ -808,7 +808,10 @@ public class Account extends Application {
                                     } else {
                                         userWeightMetric = KG;
                                     }
+
                                     //creates account and moves to scene
+                                    user[0].setPreferredWeightMetric(userWeightMetric);
+                                    user[0].setPreferredHeightMetric(userHeightMetric);
                                     user[0].setFirstName(fName);
                                     user[0].setLastName(lName);
                                     user[0].setHeight(userHeight);
