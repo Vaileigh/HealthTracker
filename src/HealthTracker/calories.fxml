@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="HealthTracker.Calories"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.Calories">
+    <BorderPane prefHeight="700.0" prefWidth="400.0">
+        <top>
+            <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                    <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
+                        <font>
+                            <Font name="System Bold Italic" size="33.0" />
+                        </font>
+                    </Text>
+                    <Text fx:id="page_name" fill="WHITE" layoutX="133.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CALORIES">
+                        <font>
+                            <Font name="System Bold" size="25.0" />
+                        </font>
+                    </Text>
+            </AnchorPane>
+        </top>
+      <center>
+         <Pane prefHeight="500.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+            <children>
+               <LineChart layoutX="28.0" layoutY="14.0" prefHeight="313.0" prefWidth="344.0">
+                 <xAxis>
+                   <CategoryAxis side="BOTTOM" />
+                 </xAxis>
+                 <yAxis>
+                   <NumberAxis side="LEFT" />
+                 </yAxis>
+               </LineChart>
+               <Line endX="174.39999389648438" layoutX="197.0" layoutY="351.0" startX="-168.60000610351562" />
+               <Button layoutX="173.0" layoutY="478.0" mnemonicParsing="false" text="Submit" />
+               <TextField layoutX="56.0" layoutY="433.0" prefHeight="25.0" prefWidth="287.0" />
+               <Text layoutX="152.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calories">
+                  <font>
+                     <Font size="27.0" />
+                  </font>
+               </Text>
+               <Text layoutX="93.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many calories have you had today?" />
+            </children></Pane>
+      </center>
+    </BorderPane>
 </AnchorPane>
