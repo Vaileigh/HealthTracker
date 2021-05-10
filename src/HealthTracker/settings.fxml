@@ -7,16 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<<<<<<< Updated upstream
-
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.layout.AnchorPane?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.SettingsController">
-=======
 <Pane maxHeight="-Infinity" fx:id="pane1" maxWidth="-Infinity" minHeight="-Infinity" minWidth="400.0" prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.SettingsController">
->>>>>>> Stashed changes
    <children>
-      <Pane prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: black;" >
+      <Pane prefHeight="60.0" prefWidth="400.0" style="-fx-background-color: black;">
          <children>
             <Text fx:id="tit1" fill="#f88d00"  layoutX="84.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
                <font>
@@ -36,44 +29,19 @@
          </image>
       </ImageView>
       <Separator layoutX="8.0" layoutY="224.0" prefHeight="13.0" prefWidth="379.0" />
-<<<<<<< Updated upstream
-      <Chip layoutX="334.0" layoutY="236.0" prefWidth="123.0" style="-fx-background-color: green;">
-         <graphic>
-            <Image url="@montreal-28-round-mirror-glossy-white-mirror-james-martin-vanities-624641_1024x.jpg" />
-         </graphic>
-      </Chip>
-      <Button fx:id="submit" layoutX="135.0" layoutY="580.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="131.0" text="Submit" onAction="#redirect"/>
-      <Text layoutX="12.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TEXT TO SPEECH" wrappingWidth="149.0">
-=======
       <Text layoutX="12.0" layoutY="259.0" strokeType="OUTSIDE" fx:id="opt1" strokeWidth="0.0" text="TEXT TO SPEECH" wrappingWidth="149.0">
->>>>>>> Stashed changes
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-<<<<<<< Updated upstream
-      <Separator layoutX="8.0" layoutY="285.0" prefHeight="13.0" prefWidth="379.0" />
-      <Chip  layoutX="334.0" layoutY="285.0" prefWidth="123.0" style="-fx-background-color: green;">
-         <graphic>
-            <Image url="@montreal-28-round-mirror-glossy-white-mirror-james-martin-vanities-624641_1024x.jpg" />
-         </graphic>
-      </Chip>
-      <Text layoutX="12.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LARGER FONT" wrappingWidth="149.0">
-=======
       <Separator layoutX="8.0" layoutY="273.0" prefHeight="13.0" prefWidth="379.0" />
       <Text layoutX="12.0" layoutY="308.0" strokeType="OUTSIDE" fx:id="opt2" strokeWidth="0.0" text="LARGER FONT" wrappingWidth="149.0">
->>>>>>> Stashed changes
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Text>
-<<<<<<< Updated upstream
-      <Separator layoutX="8.0" layoutY="327.0" prefHeight="13.0" prefWidth="379.0" />
-      <Text layoutX="12.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LANGUAGE" wrappingWidth="149.0">
-=======
       <Separator layoutX="8.0" layoutY="318.0" prefHeight="13.0" prefWidth="379.0" />
       <Text layoutX="12.0" layoutY="358.0" strokeType="OUTSIDE" fx:id="opt3" strokeWidth="0.0" text="LANGUAGE" wrappingWidth="149.0">
->>>>>>> Stashed changes
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -91,14 +59,10 @@
          </font>
       </Text>
       <Separator layoutX="8.0" layoutY="469.0" prefHeight="13.0" prefWidth="379.0" />
-<<<<<<< Updated upstream
-      <AnchorPane prefHeight="64.0" prefWidth="400.0" layoutY="636.0">
-=======
       <ComboBox fx:id="cbx2" layoutX="268.0" layoutY="435.0" prefHeight="27.0" prefWidth="110.0" promptText="Kilometers" />
       <ComboBox fx:id="cbx1" layoutX="268.0" layoutY="337.0" prefHeight="27.0" prefWidth="110.0" promptText="English" />
 
       <AnchorPane layoutY="636.0" prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
->>>>>>> Stashed changes
          <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
             <graphic>
                <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
@@ -114,30 +78,19 @@
                <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
             </graphic>
          </Button>
-<<<<<<< Updated upstream
-         <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
-=======
          <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
->>>>>>> Stashed changes
             <graphic>
                <FontAwesomeIcon glyphName="USER" size="2em" />
             </graphic>
          </Button>
-<<<<<<< Updated upstream
-         <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
-=======
          <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
->>>>>>> Stashed changes
             <graphic>
                <FontAwesomeIcon glyphName="GEAR" size="2em" />
             </graphic>
          </Button>
       </AnchorPane>
-<<<<<<< Updated upstream
-=======
       <JFXToggleButton fx:id="tgl1" onAction="#tglAct1" layoutX="275.0" layoutY="222.0" mnemonicParsing="false" prefHeight="60.0"  prefWidth="110.0" text=" " />
       <JFXToggleButton fx:id="tgl2"  onAction="#tglAct2" layoutX="293.0" layoutY="271.0"  mnemonicParsing="false" text=" " />
       <JFXToggleButton fx:id="tgl3"  onAction="#tglAct3" layoutX="293.0" layoutY="371.0" mnemonicParsing="false" text=" " />
->>>>>>> Stashed changes
    </children>
 </Pane>
