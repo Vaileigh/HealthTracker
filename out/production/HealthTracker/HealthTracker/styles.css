@@ -1,35 +1,3 @@
-
-
-/*
-.button {
-  -fx-background-color: red;
-  -fx-border: none;
-  -fx-color: blue;
-  -fx-width: 100px;
-  -fx-padding: 5px 10px;
-  -fx-text-align: center;
-  -fx-text-decoration: none;
-  -fx-display: inline-block;
-  -fx-font-size: 10px;
-  -fx-font-family: fantasy;
-  -fx-cursor: pointer;
-  -fx-effect: dropshadow(one-pass-box, grey, 0, 0, 0, 5);
-}
-
-.button1:pressed {
-	-fx-background-color: blue;
-	-fx-translate-x: 150;
-	-fx-translate-y: 103;
-	-fx-effect: dropshadow(one-pass-box, grey, 5, 0, 0, 2);
-}
-
-.button2:pressed {
-	-fx-background-color: blue;
-	-fx-translate-x: 150;
-	-fx-translate-y: 303;
-	-fx-effect: dropshadow(one-pass-box, grey, 5, 0, 0, 2);
-}
-*/
 .topBorder{
 	-fx-fill: black;
 }
@@ -204,3 +172,23 @@
      -fx-translate-x: 210;
      -fx-translate-y: 320;
  }
+ .boldTopOfPage2 {
+     -fx-font-family: Ariel;
+     -fx-font-size: 23px;
+     -fx-translate-x: 90;
+     -fx-translate-y: 130;
+     -fx-font-weight: bold;
+ }
+ .codeField {
+      -fx-translate-x: 130;
+      -fx-translate-y: 260;
+ }
+ .enterVerCode {
+       -fx-translate-x: 130;
+       -fx-translate-y: 290;
+ }
+
+  .resendEmail {
+        -fx-translate-x: 130;
+        -fx-translate-y: 330;
+  }

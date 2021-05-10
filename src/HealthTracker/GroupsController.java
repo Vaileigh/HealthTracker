@@ -69,11 +69,42 @@ public class GroupsController implements Initializable{
     @FXML
     private VBox content_user;
 
+    @FXML
+    private ScrollPane groupDetails_scrollPane;
+
+    @FXML
+    private Text groupDetails_Name;
+
+    @FXML
+    private Text groupDetails_current;
+
+    @FXML
+    private Text groupDetails_max;
+
+    @FXML
+    private Text groupDetails_descriptions;
+
+    @FXML
+    private VBox groupDetails_request;
+
+    @FXML
+    private Text groupDetails_admins;
+
+    @FXML
+    private Text groupDetails_members;
+    @FXML
+    private Text groupDetails_pendings;
+    @FXML
+    private VBox groupDetails_requests;
+
     private Button navButton;
     private Button pre_navButton;
 
     private VBox layout;
     private VBox pre_layout;
+    public String username = "User5";
+
+
 
 //    private List<GroupsModel> group = new ArrayList<>();
 //    private GroupsModel groups_model;
@@ -120,7 +151,6 @@ public class GroupsController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String username = "User2";
         navButton = btn_home;
         pre_navButton = btn_home;
         btn_home.setStyle("-fx-background-color: orange;");
@@ -131,6 +161,7 @@ public class GroupsController implements Initializable{
         layout.setVisible(true);
         content_group.setVisible(false);
         content_setting.setVisible(false);
+        groupDetails_scrollPane.setVisible(false);
 
         // group.addAll(getData());
         // System.out.println(group.get(0).getName());
@@ -328,12 +359,13 @@ public class GroupsController implements Initializable{
                 public void handle(MouseEvent mouseEvent) {
                     if(groupStatus.equals("private")){
                         System.out.println(groupMember);
-                        if (joinButton.getText().equals("Join"))
+                        if (joinButton.getText().equals("Join")){
                             joinButton.setText("Pending");
+                            updateGroupPending(hBox, username);
+                        }
                         else
                             joinButton.setText("Join");
                     }else{
-
                         updateUserGroups(userGroups, hBox);
                         updateAllGroups(allGroups, hBox);
                         try {
@@ -354,10 +386,180 @@ public class GroupsController implements Initializable{
         hBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println(hBox.getId());
+                // System.out.println(hBox.getId());
+                String groupID = hBox.getId();
+                String groupAdmins = System.getProperty("user.dir")+"\\src\\GroupData\\groupAdmins.csv";
+
+                File adminsFile = new File(groupAdmins);
+                String[] group_admins = null;
+                String line = " ";
+                String admins = null;
+                try{
+                    FileReader adminsFileReader = new FileReader(adminsFile);
+                    BufferedReader adminsBufferedReader = new BufferedReader(adminsFileReader);
+                    while ((line = adminsBufferedReader.readLine()) != null){
+                        group_admins = line.split(",");
+                        if ((group_admins[0].strip()).equals(groupID)){
+                            break;
+                        }
+                    }
+                } catch(IOException ioe) {
+                    ioe.printStackTrace();
+                }
+
+                boolean groupName = true;
+                for(String admin : group_admins){
+                    if (groupName){
+                        groupName = false;
+                    }else{
+                        if(admins == null){
+                            admins = admin;
+                        }else{
+                            admins = admins+"\n"+admin;
+                        }
+                    }
+
+                }
+
+                String groupMem = System.getProperty("user.dir")+"\\src\\GroupData\\groupMembers.csv";
+
+                File memFile = new File(groupMem);
+                String[] group_members = null;
+                line = " ";
+                String members = null;
+                try{
+                    FileReader memFileReader = new FileReader(memFile);
+                    BufferedReader memBufferedReader = new BufferedReader(memFileReader);
+                    while ((line = memBufferedReader.readLine()) != null){
+                        group_members = line.split(",");
+                        if ((group_members[0].strip()).equals(groupID)){
+                            break;
+                        }
+                    }
+                } catch(IOException ioe) {
+                    ioe.printStackTrace();
+                }
+
+                groupName = true;
+                for(String member : group_members){
+                    if (groupName){
+                        groupName = false;
+                    }else{
+                        if (!(admins.contains(member))){
+                            if(members == null){
+                                members = member;
+                            }else{
+                                members = members+"\n"+member;
+                            }
+                        }
+
+                    }
+
+                }
+
+                groupDetails_scrollPane.setVisible(true);
+                groupDetails_Name.setText(hBox.getId());
+                groupDetails_current.setText(String.valueOf(groupMember));
+                groupDetails_max.setText(String.valueOf(groupMax));
+                groupDetails_descriptions.setText(groupInfo);
+                groupDetails_admins.setText(admins);
+                groupDetails_members.setText(members);
+                if (groupStatus.equals("private")){
+                    groupDetails_requests.setVisible(true);
+                    // groupDetails_pending.setVisible(true);
+                    String groupPen = System.getProperty("user.dir")+"\\src\\GroupData\\groupPending.csv";
+
+                    File penFile = new File(groupPen);
+                    String[] group_pending = null;
+                    line = " ";
+                    String pendings = null;
+                    try{
+                        FileReader penFileReader = new FileReader(penFile);
+                        BufferedReader penBufferedReader = new BufferedReader(penFileReader);
+                        while ((line = penBufferedReader.readLine()) != null){
+                            group_pending = line.split(",");
+                            if ((group_pending[0].strip()).equals(groupID)){
+                                break;
+                            }
+                        }
+                    } catch(IOException ioe) {
+                        ioe.printStackTrace();
+                    }
+
+                    groupName = true;
+                    for(String pending : group_pending){
+
+                        if (groupName){
+                            groupName = false;
+                        }else{
+                            if(pendings == null){
+                                pendings = pending;
+                            }else{
+                                pendings = pendings+"\n"+pending;
+                            }
+                        }
+
+                    }
+                    System.out.println(pendings);
+                    groupDetails_pendings.setText(pendings);
+                }else{
+                    groupDetails_requests.setVisible(false);
+                    //groupDetails_pending.setVisible(false);
+                }
+
             }
         });
 
+
+    }
+
+    private void updateGroupPending(HBox hBox, String username){
+        String groupID = hBox.getId();
+        String groupPen = System.getProperty("user.dir")+"\\src\\GroupData\\groupPending.csv";
+
+        File penFile = new File(groupPen);
+        String[] group_pending = null;
+        String[] rows, cols;
+        String line = " ";
+        String pendings = null;
+        try{
+            FileReader penFileReader = new FileReader(penFile);
+            BufferedReader penBufferedReader = new BufferedReader(penFileReader);
+            line = penBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        }
+        rows = line.split("\n");
+        String content = null;
+        for (String row: rows){
+//            System.out.println(row);
+            cols = row.split(",");
+            if (cols[0].equals(hBox.getId())){
+                if (content == null){
+                    content = row;
+                }else{
+                    content = content + "\n" + row + "," + username;
+                }
+            }else{
+                if (content == null){
+                    content = row;
+                }else{
+                    content = content + "\n" + row;
+                }
+            }
+
+
+        }
+        System.out.println(content);
+
+//        File file = new File(allGroups);
+//        try (FileOutputStream fos = new FileOutputStream(new File(allGroups))) {
+//            fos.write(content.getBytes(StandardCharsets.UTF_8));
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -468,6 +670,10 @@ public class GroupsController implements Initializable{
         else{
             return "<404 ERROR>";
         }
+    }
+
+    public void back(){
+        groupDetails_scrollPane.setVisible(false);
     }
 
 

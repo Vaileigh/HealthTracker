@@ -9,5 +9,15 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="library" exported="" name="fontawesomefx-8.21" level="project" />
+    <orderEntry type="library" exported="" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/javax.mail.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -198,16 +198,16 @@ public class DataDisplayController {
         }
         //produce the bar chart
         // chart title
-        JFreeChart chart = ChartFactory.createBarChart( //produce the bar chart
-                null,   // chart title
-                "Day",
-                "Duration (minutes)",
-                dataset);
-
-        //buffer image and create image view for display
-        ex_chart = SwingFXUtils.toFXImage(chart.createBufferedImage(WIDTH, HEIGHT), null);
-        ex_chart_display.setImage(ex_chart);
-        noexdata.setVisible(false);
+//        JFreeChart chart = ChartFactory.createBarChart( //produce the bar chart
+//                null,   // chart title
+//                "Day",
+//                "Duration (minutes)",
+//                dataset);
+//
+//        //buffer image and create image view for display
+//        ex_chart = SwingFXUtils.toFXImage(chart.createBufferedImage(WIDTH, HEIGHT), null);
+//        ex_chart_display.setImage(ex_chart);
+//        noexdata.setVisible(false);
     }
 
     @FXML
