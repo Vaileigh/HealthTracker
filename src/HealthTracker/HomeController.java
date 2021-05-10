@@ -62,7 +62,7 @@ public class HomeController {
     @FXML
     private void initliaze(){
         User user = new User("James Wright","pass");
-        user.setAbout("hi");
+        //user.setAbout("hi");
         name.setText(user.getUsername());
         about.setText((user.getUsername()));
 

@@ -7,11 +7,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< Updated upstream
     <orderEntry type="library" exported="" name="lib" level="project" />
     <orderEntry type="library" exported="" name="fontawesomefx-8.21" level="project" />
     <orderEntry type="library" exported="" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="module-library" exported="">
+    <orderEntry type="library" name="fontawesomefx-8.21" level="project" />
+    <orderEntry type="library" name="jfreechart-1.5.3" level="project" />
+    <orderEntry type="library" name="jfoenix-8.0.10" level="project" />
+    <orderEntry type="library" name="jsapi" level="project" />
+    <orderEntry type="library" name="freetts-1.2.2" level="project" />
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/javax.mail.jar!/" />
@@ -20,12 +24,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-=======
-    <orderEntry type="library" name="fontawesomefx-8.21" level="project" />
-    <orderEntry type="library" name="jfreechart-1.5.3" level="project" />
-    <orderEntry type="library" name="jfoenix-8.0.10" level="project" />
-    <orderEntry type="library" name="jsapi" level="project" />
-    <orderEntry type="library" name="freetts-1.2.2" level="project" />
->>>>>>> Stashed changes
   </component>
 </module>

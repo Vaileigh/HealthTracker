@@ -2,11 +2,7 @@ Group #1,Helps you,src/Img/donkey.jpg,10,50,private
 Group #2,reach your,src/Img/naj.jpg,10,10,public
 Group #3,fitness goals,src/Img/orange.jpg,1,5,private
 Group #4,Helps you,src/Img/kids.jpg,10,10,private
-<<<<<<< Updated upstream
 Group #5,reach your,src/Img/lion.jpg,9,15,publicGroup #6,fitness goals,src/Img/park.jpg,9,15,public
-=======
-Group #5,reach your,src/Img/lion.jpg,8,15,publicGroup #6,fitness goals,src/Img/park.jpg,8,15,public
->>>>>>> Stashed changes
 Group #7,Helps you,src/Img/profile.png,1,5,public
 Group #8,reach your,src/Img/spider.jpg,10,10,public
 Group #9,fitness goals,src/Img/unicorn.jpg,10,10,private
