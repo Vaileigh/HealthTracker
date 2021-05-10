@@ -13,17 +13,13 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String about;
     private double height;
     private double startWeight;
     private int verificationCode;
     private boolean verified;
-    enum heightMetric {CM, INCHES}
-    private heightMetric preferredHeightMetric;
-    enum weightMetric {KG, LBS}
-    private weightMetric preferredWeightMetric;
     private HashMap<LocalDate, ArrayList<CalDat>> calData = new HashMap<>();
     private HashMap<LocalDate, ArrayList<ExDat>> exData = new HashMap<>();
-
 
     User(){
         username = "example";
@@ -46,14 +42,13 @@ public class User implements Serializable {
         this.password = password;
         this.email = email;
         verified = false;
-
-        Random rand = new Random(System.nanoTime());
-        verificationCode = rand.nextInt(90000) + 10000;
     }
 
     public String getUsername(){
         return username;
     }
+
+
 
     public String getPassword(){
         return password;
@@ -82,6 +77,12 @@ public class User implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    public String getAbout(){
+        return about;
+    }
+    public void setAbout(String x){
+        about=x;
+    }
 
     public double getHeight() {
         return height;
@@ -109,18 +110,6 @@ public class User implements Serializable {
 
     public void setVerified(boolean verified) {
         this.verified = verified;
-    }
-
-    public void setPreferredHeightMetric(heightMetric preferredHeightMetric) {
-        this.preferredHeightMetric = preferredHeightMetric;
-    }
-
-    public weightMetric getPreferredWeightMetric() {
-        return preferredWeightMetric;
-    }
-
-    public void setPreferredWeightMetric(weightMetric preferredWeightMetric) {
-        this.preferredWeightMetric = preferredWeightMetric;
     }
 
     public static void main(String[] args) {
