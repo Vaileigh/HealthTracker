@@ -1,5 +1,7 @@
 package HealthTracker;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,6 +82,7 @@ public class CaloriesController implements Initializable {
 
     private Button navButton;
     private Button pre_navButton;
+    String Meals[] = {"Breakfast","Lunch","Dinner"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,7 +91,39 @@ public class CaloriesController implements Initializable {
         pre_navButton = btn_home;
         btn_home.setStyle("-fx-background-color: orange;");
         p_name.setText(getNavName(navButton));
+        ObservableList<String> a = FXCollections.observableArrayList(Meals);
+        meals.setItems(a);
     }
+
+    public void getCalories(){
+        int calories = 0;
+        try {
+            calories = Integer.parseInt(text_field.getText());
+        } catch (NumberFormatException e){
+            System.out.println("Expected a number as measurement for calories!");
+        }
+    }
+
+    public void getMealType(){
+        meals.getValue();
+    }
+
+
+    public void submit() {
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private String getNavName(Button navButton) {
         if (navButton == btn_settings) {
