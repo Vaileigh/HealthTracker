@@ -1,18 +1,31 @@
 package HealthTracker;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 import javafx.scene.shape.Line;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
+import javafx.scene.control.ChoiceBox;
 
 import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class CaloriesController {
+public class CaloriesController implements Initializable {
 
     @FXML
     private AnchorPane a_pane;
@@ -62,4 +75,87 @@ public class CaloriesController {
     @FXML
     private ImageView img;
 
+    @FXML
+    private ChoiceBox meals;
+
+    private Button navButton;
+    private Button pre_navButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        text_field.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+        navButton = btn_home;
+        pre_navButton = btn_home;
+        btn_home.setStyle("-fx-background-color: orange;");
+        p_name.setText(getNavName(navButton));
+    }
+
+    private String getNavName(Button navButton) {
+        if (navButton == btn_settings) {
+            return "SETTINGS";
+        }
+        if (navButton == btn_user) {
+            return "USER";
+        }
+        if (navButton == btn_home) {
+            return "HOME";
+        }
+        if (navButton == btn_workouts) {
+            return "WORKOUTS";
+        }
+        if (navButton == btn_group) {
+            return "FRIENDS";
+        } else {
+            return "<404 ERROR>";
+        }
+    }
+
+    @FXML
+    public void navigation(ActionEvent event) {
+        try {
+            Parent newRoot = null;
+            if (event.getSource() == btn_user) {
+                btn_user.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                p_name.setText(getNavName(btn_user));
+                pre_navButton = btn_user;
+                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
+            } else if (event.getSource() == btn_home) {
+                btn_home.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                p_name.setText(getNavName(btn_home));
+                pre_navButton = btn_home;
+                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+            } else if (event.getSource() == btn_settings) {
+                btn_settings.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                p_name.setText(getNavName(btn_settings));
+                pre_navButton = btn_settings;
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            } else if (event.getSource() == btn_workouts) {
+                btn_workouts.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                p_name.setText(getNavName(btn_workouts));
+                pre_navButton = btn_workouts;
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+
+            } else if (event.getSource() == btn_group) {
+                btn_group.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                p_name.setText(getNavName(btn_group));
+                pre_navButton = btn_group;
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+
+            }
+            Scene scene = new Scene(newRoot);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+
+        } catch (IOException e) {
+            System.out.println("Could not redirect:" + e);
+        }
+
+
+    }
 }
