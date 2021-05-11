@@ -113,18 +113,6 @@ public class CaloriesController implements Initializable {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     private String getNavName(Button navButton) {
         if (navButton == btn_settings) {
             return "SETTINGS";

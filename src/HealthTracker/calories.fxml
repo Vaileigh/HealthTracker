@@ -61,9 +61,9 @@
                     <Button fx:id="submit" layoutX="162.0" layoutY="426.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="76.0" text="Submit" />
                     <TextField fx:id="text_field" layoutX="56.0" layoutY="374.0" prefHeight="25.0" prefWidth="220.0" promptText="Calories" />
                     <ImageView fx:id="img" fitHeight="159.0" fitWidth="205.0" layoutX="97.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../../../../../Pictures/dinner-plate-md.png" />
-                        </image>
+                  <image>
+                     <Image url="@../Img/dinner-plate-md.jpg" />
+                  </image>
                     </ImageView>
                     <Label fx:id="heading" layoutX="159.0" layoutY="303.0" text="Calories">
                         <font>
