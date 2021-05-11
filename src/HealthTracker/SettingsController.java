@@ -1,5 +1,5 @@
 package HealthTracker;
-
+/*
 
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
@@ -253,3 +253,4 @@ public class SettingsController implements Initializable {
         });
     }
 }
+*/

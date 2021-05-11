@@ -1,5 +1,6 @@
 package HealthTracker;
 
+import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ import javafx.scene.control.ChoiceBox;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CaloriesController implements Initializable {
@@ -82,7 +85,9 @@ public class CaloriesController implements Initializable {
 
     private Button navButton;
     private Button pre_navButton;
-    String Meals[] = {"Breakfast","Lunch","Dinner"};
+    LocalDate date = LocalDate.now();
+    User user = new User();
+    String Meals[] = {"Breakfast","Lunch","Dinner","Other"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -93,24 +98,28 @@ public class CaloriesController implements Initializable {
         p_name.setText(getNavName(navButton));
         ObservableList<String> a = FXCollections.observableArrayList(Meals);
         meals.setItems(a);
+        meals.setValue(a.get(0));
     }
 
-    public void getCalories(){
+    public int getCalories(){
         int calories = 0;
         try {
             calories = Integer.parseInt(text_field.getText());
+            return calories;
         } catch (NumberFormatException e){
             System.out.println("Expected a number as measurement for calories!");
         }
+        return calories;
     }
 
-    public void getMealType(){
-        meals.getValue();
+    public String getMealType(){
+        String MealType = (String) meals.getValue();
+        return MealType;
     }
 
 
-    public void submit() {
-
+    public void submitCalories() {
+        CalDat calories = new CalDat(date, getMealType(), getCalories());
     }
 
     private String getNavName(Button navButton) {
