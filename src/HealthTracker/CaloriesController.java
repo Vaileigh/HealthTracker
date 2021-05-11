@@ -32,18 +32,6 @@ import java.util.ResourceBundle;
 public class CaloriesController implements Initializable {
 
     @FXML
-    private AnchorPane a_pane;
-
-    @FXML
-    private AnchorPane banner;
-
-    @FXML
-    private Text track;
-
-    @FXML
-    private Text p_name;
-
-    @FXML
     private Button btn_group;
 
     @FXML
@@ -59,25 +47,10 @@ public class CaloriesController implements Initializable {
     private Button btn_settings;
 
     @FXML
-    private Pane content;
-
-    @FXML
-    private Line line;
-
-    @FXML
     private Button submit;
 
     @FXML
     private TextField text_field;
-
-    @FXML
-    private Label heading;
-
-    @FXML
-    private Label sub_text;
-
-    @FXML
-    private ImageView img;
 
     @FXML
     private ChoiceBox meals;
@@ -178,7 +151,6 @@ public class CaloriesController implements Initializable {
                     System.out.println(calorieRecord.toString());
                     System.out.println("Data Recorded Successfully");
                     user.recordCal(calorieRecord);
-
                     System.out.println(user.getCalData());
                 }
             }
