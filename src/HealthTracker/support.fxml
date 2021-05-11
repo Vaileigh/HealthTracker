@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.DatePicker?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.TextArea?>
-<?import com.gluonhq.charm.glisten.control.Chip?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.HomeController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.SupportController">
     <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
         <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
             <font>
-                <Font name = "System Bold Italic" size="33.0"/>
+                <Font name="System Bold Italic" size="33.0" />
             </font>
 
         </Text>
@@ -31,19 +19,19 @@
             </font>
         </Text>
     </AnchorPane>
-    <Text fill="BLACK" layoutX="40" layoutY="170" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="LEFT" text="Support">
+    <Text fill="BLACK" layoutX="44.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Support" textAlignment="LEFT">
         <font>
             <Font name="System Bold" size="36" />
         </font>
     </Text>
-    <Text fill="BLACK" layoutX="40" layoutY="200" strokeType="OUTSIDE" text="Contact us at: ">
+    <Text fill="BLACK" layoutX="53.0" layoutY="235.0" lineSpacing="1.0" strokeType="OUTSIDE" text="Contact us at: 07239 276482 or email us at: healthtracker.com" textAlignment="CENTER" wrappingWidth="300.0">
         <font>
-            <Font name="System" size="18"/>
+            <Font size="16.0" />
         </font>
     </Text>
     <Separator layoutX="8.0" layoutY="360" prefHeight="13.0" prefWidth="379.0" />
 
-    <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER" layoutY="636.0">
+    <AnchorPane layoutY="636.0" prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
             <graphic>
                 <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />

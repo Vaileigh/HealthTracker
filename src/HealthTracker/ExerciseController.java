@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,9 +12,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.io.IOException;
-
+import java.time.LocalDate;
+import java.util.Date;
+import HealthTracker.Account.*;
 public class ExerciseController {
     @FXML
     private Button milesB;
@@ -37,14 +41,34 @@ public class ExerciseController {
     private TextField distance;
     private double d;
     private int s;
-    private boolean iskm;
+    private boolean iskm, selectkm,selectmiles;
+    @FXML
+    public void initialize(){
+        selectkm=false;
+        selectmiles=false;
+    }
+    @FXML
     public void km(){
         kmB.setStyle("-fx-background-color: orange;");
         iskm=true;
+        if(selectkm)         {
+            kmB.setStyle("-fx-background-color: grey;");
+            selectkm=false;
+            return;
+        }
+
+        selectkm=true;
     }
     public void miles(){
         milesB.setStyle("-fx-background-color: orange;");
         iskm=false;
+        if(selectmiles)   {
+            milesB.setStyle("-fx-background-color: grey;");
+            selectmiles=false;
+            return;
+        }
+
+        selectmiles=true;
     }
     @FXML
     private void redirect(ActionEvent event){
@@ -52,7 +76,6 @@ public class ExerciseController {
             Parent newRoot=null;
             //nav bar
             if (event.getSource() == btn_home) {
-                System.out.println("Already on page");
                 newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
 
             }
@@ -66,32 +89,90 @@ public class ExerciseController {
                 newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
             }
             if (event.getSource() == btn_workouts) {
+                System.out.println("Already on page");
                 newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
             }
-            if(event.getSource()==submit){
-                final Exercise ex;
-                submit.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        String tempD=distance.getText();
-                        String tempS=steps.getText();
-                        d=Double.parseDouble(tempD);
-                        s=Integer.parseInt(tempS);
-                        Exercise ex = new Exercise(d, s, iskm);
-                    }
-
-                });
-                System.out.println("Distance is: "+d+s);
                 newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
-
-            }
 
             Scene scene = new Scene(newRoot);
             Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             appStage.setScene(scene);
             appStage.show();
-        } catch (IOException e) {
-            System.out.println("Could not redirect:" +e);
+                } catch (IOException ioException) {
+            ioException.printStackTrace();
         }
+        catch (NumberFormatException n){
+            n.printStackTrace();
+        }
+
+
+    }
+    @FXML
+    public void handleSubmit(ActionEvent event){
+        if(kmB.getStyle().equals("-fx-background-color: orange;")&&milesB.getStyle().equals("-fx-background-color: orange;")){
+            JOptionPane.showMessageDialog(new JFrame(), "Please select ONLY miles or kilometres for your measurement", "Error",JOptionPane.ERROR_MESSAGE );
+        }
+        if(kmB.getStyle().equals("-fx-background-color: white;")&&milesB.getStyle().equals("-fx-background-color: white;")){
+            JOptionPane.showMessageDialog(new JFrame(), "Please select miles or kilometres for your measurement", "Error",JOptionPane.ERROR_MESSAGE );
+        }
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Scene scene=new Scene(new Group(),400,700);
+                final Exercise ex;
+                String measurement=null;
+                String tempD = null, tempS = null;
+                tempD=distance.getText();
+                tempS=steps.getText();
+                if(tempS.isEmpty()||tempD.isEmpty()||tempD==null||tempS==null){
+                    JOptionPane.showMessageDialog(new JFrame(), "Please enter a valid integer", "Dialog",JOptionPane.ERROR_MESSAGE );
+                }
+                else if(iskm!=true||iskm!=false){
+                    JOptionPane.showMessageDialog(new JFrame(), "Please select miles or kilometres for your measurement", "Dialog",JOptionPane.ERROR_MESSAGE );
+
+                }
+                else{
+                    if(iskm==true){
+                        measurement="km";
+                    }
+                    else{
+                        measurement="miles";
+                    }
+
+
+                    d=Double.parseDouble(tempD);
+                    s=Integer.parseInt(tempS);
+                    try {
+                        Parent newRoot=null;
+
+                        newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+                        scene = new Scene(newRoot);
+                        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        appStage.setScene(scene);
+                        appStage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                LocalDate date = LocalDate.now();
+                ExDat exDat = new ExDat(date,measurement,d,s);
+                System.out.println(exDat.toString());
+                User.recordEx(exDat);
+                System.out.println("Exercise logged");
+                try {
+                    Parent newRoot=null;
+
+                    newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+                    scene = new Scene(newRoot);
+                    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    appStage.setScene(scene);
+                    appStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
     }
 }
