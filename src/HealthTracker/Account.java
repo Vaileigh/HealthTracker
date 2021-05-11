@@ -28,13 +28,13 @@ import static HealthTracker.User.weightMetric.KG;
 import static HealthTracker.User.weightMetric.LBS;
 
 public class Account extends Application {
-    public User loggedIn;
+    public static User loggedIn;
 
     public void setLoggedIn(User loggedIn) {
         this.loggedIn = loggedIn;
     }
 
-    public User getLoggedIn() {
+    public static User getLoggedIn() {
         return loggedIn;
     }
 
@@ -425,6 +425,7 @@ public class Account extends Application {
                 user[0].setVerified(true);
                 data.updateUser(user[0]);
                 data.saveData();
+                setLoggedIn(user[0]);
                 /**********************************************
                  * User now logs in
                  *
