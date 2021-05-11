@@ -276,14 +276,14 @@ public class DataDisplayController {
                         dataset.setValue(dat.getDuration(), "DURATION", date.getDayOfWeek());
                     }
                 }
-                }
+            }
             else {
                 System.out.println("No data for date (" + date + ")");
                 int count = dataset.getColumnCount();
                 DayOfWeek day = daysOfWeek.get(count).getDayOfWeek();
                 dataset.setValue(0, "DURATION", day);
-                }
             }
+        }
         return dataset;
     }
 
@@ -447,17 +447,17 @@ public class DataDisplayController {
         me.recordEx(ex);
         ex = new ExDat("Balance", 40);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(1), "Cardio", 20);
+        ex = new ExDat(LocalDate.now().minusDays(1), "Cardio", 20,10);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(2), "Cardio", 30);
+        ex = new ExDat(LocalDate.now().minusDays(2), "Cardio", 30,3);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(3), "Cardio", 5);
+        ex = new ExDat(LocalDate.now().minusDays(3), "Cardio", 5,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(4), "Cardio", 80);
+        ex = new ExDat(LocalDate.now().minusDays(4), "Cardio", 80,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(5), "Abs", 20);
+        ex = new ExDat(LocalDate.now().minusDays(5), "Abs", 20,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(6), "Cardio", 60);
+        ex = new ExDat(LocalDate.now().minusDays(6), "Cardio", 60,1000);
         me.recordEx(ex);
     }
 }

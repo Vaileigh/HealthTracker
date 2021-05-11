@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -30,7 +31,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class HomeController {
+import static com.sun.javafx.scene.control.skin.Utils.getResource;
+
+public class HomeController extends User {
     @FXML
     private Text title;
     @FXML
@@ -60,12 +63,12 @@ public class HomeController {
     @FXML
     private Button btn_workouts;
     @FXML
-    private void initliaze(){
-        User user = new User("James Wright","pass");
-        user.setAbout("hi");
-        name.setText(user.getUsername());
-        about.setText((user.getUsername()));
-
+    private Button goalbtn;
+    @FXML
+    private void initialize(){
+        name.setText(getUsername());
+        about.setTextAlignment(TextAlignment.CENTER);
+        about.setText(getAbout());
     }
     @FXML
     private void redirect(ActionEvent event){
@@ -82,8 +85,13 @@ public class HomeController {
             if(event.getSource()==support){
                 newRoot=FXMLLoader.load(getClass().getResource("support.fxml"));
             }
+            if(event.getSource()==goalbtn){
+                newRoot=FXMLLoader.load(getClass().getResource("goals.fxml"));
+
+            }
             //nav bar
             if (event.getSource() == btn_home) {
+                System.out.println("Already on page");
                 newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
 
             }
@@ -97,7 +105,7 @@ public class HomeController {
                 newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
             }
             if (event.getSource() == btn_workouts) {
-                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+                newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
             }
 
             Scene scene = new Scene(newRoot);

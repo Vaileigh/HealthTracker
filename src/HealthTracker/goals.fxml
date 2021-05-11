@@ -1,14 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="HealthTracker.Goals"
-            prefHeight="400.0" prefWidth="600.0">
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ProgressBar?>
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GoalController">
+    <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+        <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
+            <font>
+                <Font name="System Bold Italic" size="33.0" />
+            </font>
 
+        </Text>
+        <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GOALS">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Text>
+    </AnchorPane>
+    <ImageView layoutX="130" layoutY="130">
+        <Image preserveRatio="true" requestedWidth="140" url="@goalicon.png" />
+    </ImageView>
+    <Separator layoutX="8.0" layoutY="240" prefHeight="13.0" prefWidth="379.0" />
+    <Text fx:id="gl1" layoutX="50" layoutY="330" text="something">
+        <font>
+            <Font name="System" size="15.0" />
+        </font>
+    </Text>
+    <Text fx:id="gl2" layoutX="50" layoutY="430">
+        <font>
+            <Font name="System" size="15.0" />
+        </font>
+    </Text>
+    <Text fx:id="gl3" layoutX="50" layoutY="530">
+        <font>
+            <Font name="System" size="15.0" />
+        </font>
+    </Text>
+    <ProgressBar fx:id="pb1" progress="100" layoutX="50" layoutY="350" prefWidth="300" prefHeight="30"/>
+    <ProgressBar fx:id="pb2" progress="100" layoutX="50" layoutY="450" prefWidth="300" prefHeight="30"/>
+    <ProgressBar fx:id="pb3" progress="100" layoutX="50" layoutY="550" prefWidth="300" prefHeight="30"/>
+
+    <AnchorPane layoutY="636.0" prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+        <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="BICYCLE" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
+            <graphic>
+                <FontAwesomeIcon glyphName="USER" size="2em" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GEAR" size="2em" />
+            </graphic>
+        </Button>
+    </AnchorPane>
 </AnchorPane>

@@ -13,8 +13,14 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String about;
     private double height;
     private double startWeight;
+    //new fields
+    public double weightGoal=100;
+    public int calGoal=5000;
+    public int stepGoal=10000;
+
     private int verificationCode;
     private boolean verified;
     enum heightMetric {CM, INCHES}
@@ -22,7 +28,7 @@ public class User implements Serializable {
     enum weightMetric {KG, LBS}
     private weightMetric preferredWeightMetric;
     private HashMap<LocalDate, ArrayList<CalDat>> calData = new HashMap<>();
-    private HashMap<LocalDate, ArrayList<ExDat>> exData = new HashMap<>();
+    private static HashMap<LocalDate, ArrayList<ExDat>> exData = new HashMap<>();
 
 
     User(){
@@ -83,6 +89,14 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
     public double getHeight() {
         return height;
     }
@@ -121,6 +135,30 @@ public class User implements Serializable {
 
     public void setPreferredWeightMetric(weightMetric preferredWeightMetric) {
         this.preferredWeightMetric = preferredWeightMetric;
+    }
+
+    public double getWeightGoal() {
+        return weightGoal;
+    }
+
+    public void setWeightGoal(double weightGoal) {
+        this.weightGoal = weightGoal;
+    }
+
+    public int getCalGoal() {
+        return calGoal;
+    }
+
+    public void setCalGoal(int calGoal) {
+        this.calGoal = calGoal;
+    }
+
+    public int getStepGoal() {
+        return stepGoal;
+    }
+
+    public void setStepGoal(int stepGoal) {
+        this.stepGoal = stepGoal;
     }
 
     public static void main(String[] args) {
@@ -167,13 +205,14 @@ public class User implements Serializable {
         return returnData;
     }
 
-    public void recordEx(ExDat ex) {
+    public static void recordEx(ExDat ex) {
         ArrayList<ExDat> items = exData.get(ex.getDate());
         if (items == null) {
             items = new ArrayList<>();
         }
         items.add(ex);
         exData.put(ex.getDate(), items);
+        System.out.println("recorded successfully");
     }
 
     HashMap<LocalDate, ArrayList<ExDat>> getExData() {

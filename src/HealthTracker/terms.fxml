@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.DatePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.TextArea?>
-<?import com.gluonhq.charm.glisten.control.Chip?>
-<?import javafx.scene.image.Image?>
-<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.HomeController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.TermsController">
     <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
         <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
             <font>
-                <Font name = "System Bold Italic" size="33.0"/>
+                <Font name="System Bold Italic" size="33.0" />
             </font>
 
         </Text>
@@ -31,19 +23,19 @@
             </font>
         </Text>
     </AnchorPane>
-    <Text fill="BLACK" layoutX="40" layoutY="170" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="LEFT" text="Terms and Conditions">
+    <Text fill="BLACK" layoutX="40.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terms and Conditions" textAlignment="LEFT">
         <font>
-            <Font name="System Bold" size="36" />
+            <Font name="System Bold" size="33" />
         </font>
     </Text>
-    <Text fill="BLACK" layoutX="40" layoutY="200" strokeType="OUTSIDE" text="1. ">
+    <TextArea layoutX="25.0" layoutY="184.0" maxHeight="600" maxWidth="368.0" prefHeight="429.0" prefRowCount="10" prefWidth="368.0" text="Suspendisse et accumsan risus.  Nunc dapibus, diam a scelerisque euismod, massa magna auctor purus, non dignissim diam erat nec est. Curabitur nec molestie tellus, vitae lobortis arcu. Morbi vehicula feugiat lacus, ut porttitor magna sodales quis. Pellentesque non blandit nunc. Proin in metus fermentum, laoreet magna egestas, condimentum sapien. Vestibulum condimentum, nibh eget finibus pulvinar, ex mi dapibus ligula, vitae dapibus ipsum urna sed lacus. Etiam pellentesque eget ante eu dictum. Sed eu tempor lectus. Nulla sed placerat arcu. Maecenas maximus commodo ipsum, eget tempus quam congue sit amet. Mauris aliquam tellus ac augue iaculis, rhoncus laoreet elit pellentesque. Maecenas rutrum accumsan libero non dapibus.  Quisque facilisis interdum augue, ac facilisis quam fringilla non. Donec massa neque, sollicitudin nec dui sit amet, rhoncus lobortis enim. Nunc dictum mauris eget dolor euismod dignissim quis vel libero. Donec bibendum rhoncus odio, ut vulputate ipsum molestie vitae. Praesent ac diam sit amet lacus porta placerat vitae at erat. Vestibulum hendrerit gravida sem. Nunc ut libero nec nisl cursus placerat. Proin suscipit tincidunt mollis. In porta vel nunc a facilisis. Phasellus sed nulla quis lorem egestas tempor sed et nisi. Pellentesque cursus " wrapText="true">
         <font>
-            <Font name="System" size="18"/>
+            <Font name="System" size="18" />
         </font>
-    </Text>
+    </TextArea>
     <Separator layoutX="8.0" layoutY="360" prefHeight="13.0" prefWidth="379.0" />
 
-    <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER" layoutY="636.0">
+    <AnchorPane layoutY="636.0" prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
             <graphic>
                 <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />

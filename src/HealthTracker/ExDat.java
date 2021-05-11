@@ -6,11 +6,12 @@ class ExDat {
     LocalDate date;
     String exerciseType;
     double duration;
-
-    ExDat(LocalDate ld, String et, double d) {
+    int steps;
+    ExDat(LocalDate ld, String et, double d, int s) {
         this.date = ld;
         this.exerciseType = et;
         this.duration = d;
+        this.steps=s;
     }
 
     ExDat(String et, double d) {
