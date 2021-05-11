@@ -2,7 +2,7 @@ package HealthTracker;
 
 public class Exercise {
     private int steps;
-    private double distance;    
+    private double distance;
     private boolean isKm;
     Exercise(){
         steps=0;

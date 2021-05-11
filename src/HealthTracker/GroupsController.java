@@ -1,8 +1,13 @@
 package HealthTracker;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -14,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +30,7 @@ import java.util.stream.Collectors;
 
 import java.io.FileWriter;
 
-public class GroupsController implements Initializable{
+public class GroupsController implements Initializable {
     @FXML
     private Button btn_settings;
 
@@ -69,42 +75,11 @@ public class GroupsController implements Initializable{
     @FXML
     private VBox content_user;
 
-    @FXML
-    private ScrollPane groupDetails_scrollPane;
-
-    @FXML
-    private Text groupDetails_Name;
-
-    @FXML
-    private Text groupDetails_current;
-
-    @FXML
-    private Text groupDetails_max;
-
-    @FXML
-    private Text groupDetails_descriptions;
-
-    @FXML
-    private VBox groupDetails_request;
-
-    @FXML
-    private Text groupDetails_admins;
-
-    @FXML
-    private Text groupDetails_members;
-    @FXML
-    private Text groupDetails_pendings;
-    @FXML
-    private VBox groupDetails_requests;
-
     private Button navButton;
     private Button pre_navButton;
 
     private VBox layout;
     private VBox pre_layout;
-    public String username = "User5";
-
-
 
 //    private List<GroupsModel> group = new ArrayList<>();
 //    private GroupsModel groups_model;
@@ -151,6 +126,7 @@ public class GroupsController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        String username = "User2";
         navButton = btn_home;
         pre_navButton = btn_home;
         btn_home.setStyle("-fx-background-color: orange;");
@@ -161,13 +137,12 @@ public class GroupsController implements Initializable{
         layout.setVisible(true);
         content_group.setVisible(false);
         content_setting.setVisible(false);
-        groupDetails_scrollPane.setVisible(false);
 
         // group.addAll(getData());
         // System.out.println(group.get(0).getName());
-        String allGroups = System.getProperty("user.dir")+"\\src\\GroupData\\groupData.csv";
+        String allGroups = System.getProperty("user.dir") + "\\src\\GroupData\\groupData.csv";
         //String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroupData.csv";
-        String userGroups = System.getProperty("user.dir")+"\\src\\GroupData\\userGroups.csv";
+        String userGroups = System.getProperty("user.dir") + "\\src\\GroupData\\userGroups.csv";
         // read(csvFile);
 
         File userFile = new File(userGroups);
@@ -182,16 +157,16 @@ public class GroupsController implements Initializable{
 //        }
 //        user_groups = line.split("\n");
 
-        try{
+        try {
             FileReader userFileReader = new FileReader(userFile);
             BufferedReader userBufferedReader = new BufferedReader(userFileReader);
-            while ((line = userBufferedReader.readLine()) != null){
+            while ((line = userBufferedReader.readLine()) != null) {
                 user_groups = line.split(",");
-                if ((user_groups[0].strip()).equals(username)){
+                if ((user_groups[0].strip()).equals(username)) {
                     break;
                 }
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
 
@@ -214,8 +189,8 @@ public class GroupsController implements Initializable{
             while ((line = bufferedReader.readLine()) != null) {
                 tempArr = line.split(",");
 
-                for(int i = 0; i < tempArr.length; i++){
-                    switch (i){
+                for (int i = 0; i < tempArr.length; i++) {
+                    switch (i) {
                         case 0:
                             groupName = tempArr[i];
                             break;
@@ -246,8 +221,7 @@ public class GroupsController implements Initializable{
             }
 
             bufferedReader.close();
-        }
-        catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
 
@@ -277,9 +251,6 @@ public class GroupsController implements Initializable{
 //        }
 
 
-
-
-
         ///String currentDirectory = System.getProperty("user.dir");
         //System.out.println("The current working directory is " + currentDirectory);
 
@@ -304,7 +275,7 @@ public class GroupsController implements Initializable{
 
     }
 
-    private void setAllGroup(String groupName, String groupImg, int id, String groupInfo, String[] user_groups, int groupMember, int groupMax, String groupStatus, String userGroups, String allGroups){
+    private void setAllGroup(String groupName, String groupImg, int id, String groupInfo, String[] user_groups, int groupMember, int groupMax, String groupStatus, String userGroups, String allGroups) {
         HBox hBox = new HBox();
         hBox.setId(groupName);
         ImageView imageView = new ImageView();
@@ -316,17 +287,17 @@ public class GroupsController implements Initializable{
         HBox.setMargin(imageView, new Insets(5, 5, 5, 5));
         hBox.setStyle("-fx-border-color: orange;");
         hBox.setStyle("-fx-background-color: white;");
-        imageView.setId(id+"_imageView");
+        imageView.setId(id + "_imageView");
         hBox.getChildren().add(imageView);
         VBox vBox = new VBox();
-        vBox.setId(id+"_vBox");
+        vBox.setId(id + "_vBox");
         Text name = new Text(groupName);
         name.setStyle("-fx-font-size: 14;");
         vBox.getChildren().add(name);
         Text detail = new Text(groupInfo);
         detail.setWrappingWidth(270);
         vBox.getChildren().add(detail);
-        Text no = new Text(groupMember+"/"+groupMax+" | "+groupStatus);
+        Text no = new Text(groupMember + "/" + groupMax + " | " + groupStatus);
         //Text status = new Text(groupStatus);
         vBox.getChildren().add(no);
         //vBox.getChildren().add(status);
@@ -344,12 +315,12 @@ public class GroupsController implements Initializable{
             }
         }
 
-        if (con){
+        if (con) {
             myGroups_vbox.getChildren().add(hBox);
-        }else{
+        } else {
             String labels = "Join";
             Button joinButton = new Button(labels);
-            if (groupMember == groupMax){
+            if (groupMember == groupMax) {
                 joinButton.setDisable(true);
             }
             hBox.getChildren().add(joinButton);
@@ -357,22 +328,21 @@ public class GroupsController implements Initializable{
             joinButton.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if(groupStatus.equals("private")){
+                    if (groupStatus.equals("private")) {
                         System.out.println(groupMember);
-                        if (joinButton.getText().equals("Join")){
+                        if (joinButton.getText().equals("Join"))
                             joinButton.setText("Pending");
-                            updateGroupPending(hBox, username);
-                        }
                         else
                             joinButton.setText("Join");
-                    }else{
+                    } else {
+
                         updateUserGroups(userGroups, hBox);
                         updateAllGroups(allGroups, hBox);
                         try {
                             Thread.sleep(1000);
                             hBox.getChildren().remove(joinButton);
                             myGroups_vbox.getChildren().add(hBox);
-                            no.setText(groupMember+1 +"/"+groupMax+" | "+groupStatus);
+                            no.setText(groupMember + 1 + "/" + groupMax + " | " + groupStatus);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -386,180 +356,10 @@ public class GroupsController implements Initializable{
         hBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                // System.out.println(hBox.getId());
-                String groupID = hBox.getId();
-                String groupAdmins = System.getProperty("user.dir")+"\\src\\GroupData\\groupAdmins.csv";
-
-                File adminsFile = new File(groupAdmins);
-                String[] group_admins = null;
-                String line = " ";
-                String admins = null;
-                try{
-                    FileReader adminsFileReader = new FileReader(adminsFile);
-                    BufferedReader adminsBufferedReader = new BufferedReader(adminsFileReader);
-                    while ((line = adminsBufferedReader.readLine()) != null){
-                        group_admins = line.split(",");
-                        if ((group_admins[0].strip()).equals(groupID)){
-                            break;
-                        }
-                    }
-                } catch(IOException ioe) {
-                    ioe.printStackTrace();
-                }
-
-                boolean groupName = true;
-                for(String admin : group_admins){
-                    if (groupName){
-                        groupName = false;
-                    }else{
-                        if(admins == null){
-                            admins = admin;
-                        }else{
-                            admins = admins+"\n"+admin;
-                        }
-                    }
-
-                }
-
-                String groupMem = System.getProperty("user.dir")+"\\src\\GroupData\\groupMembers.csv";
-
-                File memFile = new File(groupMem);
-                String[] group_members = null;
-                line = " ";
-                String members = null;
-                try{
-                    FileReader memFileReader = new FileReader(memFile);
-                    BufferedReader memBufferedReader = new BufferedReader(memFileReader);
-                    while ((line = memBufferedReader.readLine()) != null){
-                        group_members = line.split(",");
-                        if ((group_members[0].strip()).equals(groupID)){
-                            break;
-                        }
-                    }
-                } catch(IOException ioe) {
-                    ioe.printStackTrace();
-                }
-
-                groupName = true;
-                for(String member : group_members){
-                    if (groupName){
-                        groupName = false;
-                    }else{
-                        if (!(admins.contains(member))){
-                            if(members == null){
-                                members = member;
-                            }else{
-                                members = members+"\n"+member;
-                            }
-                        }
-
-                    }
-
-                }
-
-                groupDetails_scrollPane.setVisible(true);
-                groupDetails_Name.setText(hBox.getId());
-                groupDetails_current.setText(String.valueOf(groupMember));
-                groupDetails_max.setText(String.valueOf(groupMax));
-                groupDetails_descriptions.setText(groupInfo);
-                groupDetails_admins.setText(admins);
-                groupDetails_members.setText(members);
-                if (groupStatus.equals("private")){
-                    groupDetails_requests.setVisible(true);
-                    // groupDetails_pending.setVisible(true);
-                    String groupPen = System.getProperty("user.dir")+"\\src\\GroupData\\groupPending.csv";
-
-                    File penFile = new File(groupPen);
-                    String[] group_pending = null;
-                    line = " ";
-                    String pendings = null;
-                    try{
-                        FileReader penFileReader = new FileReader(penFile);
-                        BufferedReader penBufferedReader = new BufferedReader(penFileReader);
-                        while ((line = penBufferedReader.readLine()) != null){
-                            group_pending = line.split(",");
-                            if ((group_pending[0].strip()).equals(groupID)){
-                                break;
-                            }
-                        }
-                    } catch(IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-
-                    groupName = true;
-                    for(String pending : group_pending){
-
-                        if (groupName){
-                            groupName = false;
-                        }else{
-                            if(pendings == null){
-                                pendings = pending;
-                            }else{
-                                pendings = pendings+"\n"+pending;
-                            }
-                        }
-
-                    }
-                    System.out.println(pendings);
-                    groupDetails_pendings.setText(pendings);
-                }else{
-                    groupDetails_requests.setVisible(false);
-                    //groupDetails_pending.setVisible(false);
-                }
-
+                System.out.println(hBox.getId());
             }
         });
 
-
-    }
-
-    private void updateGroupPending(HBox hBox, String username){
-        String groupID = hBox.getId();
-        String groupPen = System.getProperty("user.dir")+"\\src\\GroupData\\groupPending.csv";
-
-        File penFile = new File(groupPen);
-        String[] group_pending = null;
-        String[] rows, cols;
-        String line = " ";
-        String pendings = null;
-        try{
-            FileReader penFileReader = new FileReader(penFile);
-            BufferedReader penBufferedReader = new BufferedReader(penFileReader);
-            line = penBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
-        rows = line.split("\n");
-        String content = null;
-        for (String row: rows){
-//            System.out.println(row);
-            cols = row.split(",");
-            if (cols[0].equals(hBox.getId())){
-                if (content == null){
-                    content = row;
-                }else{
-                    content = content + "\n" + row + "," + username;
-                }
-            }else{
-                if (content == null){
-                    content = row;
-                }else{
-                    content = content + "\n" + row;
-                }
-            }
-
-
-        }
-        System.out.println(content);
-
-//        File file = new File(allGroups);
-//        try (FileOutputStream fos = new FileOutputStream(new File(allGroups))) {
-//            fos.write(content.getBytes(StandardCharsets.UTF_8));
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
@@ -571,32 +371,32 @@ public class GroupsController implements Initializable{
             FileReader userFileReader = new FileReader(allGroups);
             BufferedReader userBufferedReader = new BufferedReader(userFileReader);
             line = userBufferedReader.lines().collect(Collectors.joining(System.lineSeparator()));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
         rows = line.split("\n");
         String content = null;
-        for (String row: rows){
+        for (String row : rows) {
 //            System.out.println(row);
             cols = row.split(",");
-            if (cols[0].equals(hBox.getId())){
+            if (cols[0].equals(hBox.getId())) {
                 cols[3] = String.valueOf(Integer.parseInt(cols[3]) + 1);
-                for (int j = 0; j < cols.length; j++){
-                    if (content == null){
+                for (int j = 0; j < cols.length; j++) {
+                    if (content == null) {
                         content = cols[j];
-                    }else{
-                        if (j == 0){
+                    } else {
+                        if (j == 0) {
                             content = content + cols[j];
-                        }else{
+                        } else {
                             content = content + "," + cols[j];
                         }
 
                     }
                 }
-            }else{
-                if (content == null){
+            } else {
+                if (content == null) {
                     content = row;
-                }else{
+                } else {
                     content = content + "\n" + row;
                 }
             }
@@ -618,7 +418,7 @@ public class GroupsController implements Initializable{
     private void updateUserGroups(String userGroups, HBox hBox) {
         File file = new File(userGroups);
         try (FileOutputStream fos = new FileOutputStream(file, true)) {
-            String content = "\n"+hBox.getId();
+            String content = "\n" + hBox.getId();
             fos.write(content.getBytes(StandardCharsets.UTF_8));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -651,73 +451,81 @@ public class GroupsController implements Initializable{
 //        }
 //      }
 
-    private String getNavName(Button navButton){
-        if (navButton == btn_settings){
+    private String getNavName(Button navButton) {
+        if (navButton == btn_settings) {
             return "SETTINGS";
         }
-        if (navButton == btn_user){
+        if (navButton == btn_user) {
             return "USER";
         }
-        if (navButton == btn_home){
+        if (navButton == btn_home) {
             return "HOME";
         }
-        if (navButton == btn_workouts){
+        if (navButton == btn_workouts) {
             return "WORKOUTS";
         }
-        if (navButton == btn_group){
+        if (navButton == btn_group) {
             return "FRIENDS";
-        }
-        else{
+        } else {
             return "<404 ERROR>";
         }
     }
 
-    public void back(){
-        groupDetails_scrollPane.setVisible(false);
-    }
 
+    @FXML
+    public void navigation(ActionEvent event) {
+        try {
+            Parent newRoot = null;
+            if (event.getSource() == btn_user) {
+                btn_user.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_user));
+                pre_navButton = btn_user;
+                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
+            } else if (event.getSource() == btn_home) {
+                btn_home.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_home));
+                pre_layout.setVisible(false);
+                content_home.setVisible(true);
+                pre_layout = content_home;
+                pre_navButton = btn_home;
+                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+            } else if (event.getSource() == btn_settings) {
+                btn_settings.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_settings));
+                pre_layout.setVisible(false);
+                //pre_layout = content_setting;
+                pre_navButton = btn_settings;
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            } else if (event.getSource() == btn_workouts) {
+                btn_workouts.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_workouts));
+                pre_navButton = btn_workouts;
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
 
+            } else if (event.getSource() == btn_group) {
+                btn_group.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_group));
+                pre_layout.setVisible(false);
+                content_group.setVisible(true);
+                pre_layout = content_group;
+                pre_navButton = btn_group;
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
 
+            }
+            Scene scene = new Scene(newRoot);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
 
-    public void navigation(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource() == btn_user) {
-            btn_user.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_user));
-            pre_navButton = btn_user;
+        } catch (IOException e) {
+            System.out.println("Could not redirect:" + e);
         }
-        else if(mouseEvent.getSource() == btn_home) {
-            btn_home.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_home));
-            pre_layout.setVisible(false);
-            content_home.setVisible(true);
-            pre_layout = content_home;
-            pre_navButton = btn_home;
-        }
-        else if(mouseEvent.getSource() == btn_settings) {
-            btn_settings.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_settings));
-            pre_layout.setVisible(false);
-            //pre_layout = content_setting;
-            pre_navButton = btn_settings;
-        }
-        else if(mouseEvent.getSource() == btn_workouts) {
-            btn_workouts.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_workouts));
-            pre_navButton = btn_workouts;
-        }
-        else if(mouseEvent.getSource() == btn_group) {
-            btn_group.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_group));
-            pre_layout.setVisible(false);
-            content_group.setVisible(true);
-            pre_layout = content_group;
-            pre_navButton = btn_group;
-        }
+
 
     }
 }

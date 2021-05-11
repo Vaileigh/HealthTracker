@@ -33,7 +33,7 @@ import java.util.Locale;
 
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
-public class HomeController {
+public class HomeController extends User {
     @FXML
     private Text title;
     @FXML
@@ -66,10 +66,9 @@ public class HomeController {
     private Button goalbtn;
     @FXML
     private void initialize(){
-        User user = new User("James Wright","pass");
-        name.setText(user.getUsername());
+        name.setText(getUsername());
         about.setTextAlignment(TextAlignment.CENTER);
-        about.setText(user.getAbout());
+        about.setText(getAbout());
     }
     @FXML
     private void redirect(ActionEvent event){

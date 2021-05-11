@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.awt.datatransfer.MimeTypeParseException;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,6 +28,15 @@ import static HealthTracker.User.weightMetric.KG;
 import static HealthTracker.User.weightMetric.LBS;
 
 public class Account extends Application {
+    public static User loggedIn;
+
+    public void setLoggedIn(User loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public static User getLoggedIn() {
+        return loggedIn;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -415,6 +425,7 @@ public class Account extends Application {
                 user[0].setVerified(true);
                 data.updateUser(user[0]);
                 data.saveData();
+                setLoggedIn(user[0]);
                 /**********************************************
                  * User now logs in
                  *
@@ -534,6 +545,7 @@ public class Account extends Application {
             try {
                 user[0] = data.getUser(usernameEntered, passwordEntered);
                 if(user[0].isVerified()) {
+                    loggedIn=user[0];
                     System.out.println("Successful Log in of " + user[0].getUsername() + ", " + user[0].getPassword());
                 }
                 else {
