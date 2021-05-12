@@ -19,8 +19,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
@@ -57,19 +55,13 @@ public class DataDisplayController {
     @FXML
     private Text noexdata;
     @FXML
-    private Text nocaldata;
-    @FXML
     private Button swap_btn;
     @FXML
     private Button ex_btn;
     @FXML
     private Image ex_chart;
     @FXML
-    private Image cal_chart;
-    @FXML
     private ImageView ex_chart_display;
-    @FXML
-    private ImageView cal_chart_display;
     @FXML
     private Button prev_btn;
     @FXML
@@ -102,16 +94,7 @@ public class DataDisplayController {
 
     @FXML
     private void initialize() {
-        if (Account.getLoggedIn()!=null) {
-            me = Account.getLoggedIn();
-        }
-        else {
-            System.out.println("Could not get logged in user");
-        }
-        System.out.println("User: " + me.getUsername());
-        if (me.getCalData().isEmpty() && me.getExData().isEmpty()) {
-            DummyData();
-        }
+        DummyData();
         createCalProg(); //creating progress bar from user data
         createBar(rng_cbx.getValue()); //create graph from user data, default is bar chart
         reset_btn.setDisable(true);
@@ -135,19 +118,13 @@ public class DataDisplayController {
                 calsTaken += cal.getCalories();
 
         double progress = calsTaken / calGoal;
-        if (rng_cbx.getValue().equals(WEEK)) {
-            progress = calsTaken / (calGoal * 7);
-        }
         pb.setProgress(progress); //create progress bar with data
 
-        String progressD = new DecimalFormat("#.##").format(progress*100);
-        cal_prog.setText(progressD + "%");
-        if (progress > 1.0) { //handle values over 100%
+        cal_prog.setText((progress * 100) + "%");
+        if (calsTaken / calGoal > 1.0) { //handle values over 100%
             double over = (progress - 1.0) * 100;
-            String over2 = new DecimalFormat("#.##").format(over);
-            warning.setText("You are over your goal by " + over2 + "%"); //displays a warning message
+            warning.setText("You are over your goal by " + over + "%"); //displays a warning message
             warning.setFill(Color.rgb(236, 128, 47));
-            warning.setVisible(true);
             pb.setStyle("-fx-accent: red");
         }
         else {
@@ -155,7 +132,6 @@ public class DataDisplayController {
             pb.setStyle("-fx-accent: green");
         }
         pb.setProgress(progress);
-        System.out.println(me.getCalData());
     }
 
     @FXML
@@ -165,7 +141,7 @@ public class DataDisplayController {
         DefaultPieDataset dataset = new DefaultPieDataset();
 
         if (me.getExData().isEmpty()) { //user has never logged data for exercise
-            noExData();
+            noData();
             return;
         }
 
@@ -179,7 +155,7 @@ public class DataDisplayController {
         }
 
         if (dataset == null) {
-            noExData();
+            noData();
             return;
         }
 
@@ -203,7 +179,7 @@ public class DataDisplayController {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         if (me.getExData().isEmpty()) { //user has never logged exercise data
-            noExData();
+            noData();
             return;
         }
 
@@ -217,101 +193,21 @@ public class DataDisplayController {
         }
 
         if (dataset == null) {
-            noExData();
+            noData();
             return;
         }
         //produce the bar chart
         // chart title
-        JFreeChart chart = ChartFactory.createBarChart( //produce the bar chart
-                null,   // chart title
-                "Day",
-                "Duration (minutes)",
-                dataset);
-
-        //buffer image and create image view for display
-        ex_chart = SwingFXUtils.toFXImage(chart.createBufferedImage(WIDTH, HEIGHT), null);
-        ex_chart_display.setImage(ex_chart);
-        noexdata.setVisible(false);
-    }
-
-    @FXML
-    private void createStackedBar(String timeframe) {
-        final int WIDTH = 400;
-        final int HEIGHT = 140; //for graph image output
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        if (me.getCalData().isEmpty()) { //user has never logged exercise data
-            noCalData();
-            return;
-        }
-
-        if (timeframe.equals(WEEK)) {
-            LocalDate start = (chartView.with(fieldISO, 1));
-            LocalDate end = (chartView.with(fieldISO, 7));
-            dataset = formStackedBarData(start, end);
-        }
-        if (timeframe.equals(DAY)) {
-            dataset = formStackedBarData(chartView, chartView);
-        }
-
-        if (dataset == null) {
-            noCalData();
-            return;
-        }
-        //produce the bar chart
-        // chart title
-        JFreeChart chart = ChartFactory.createStackedBarChart( //produce the bar chart
-                null,   // chart title
-                "Day",
-                "Calories",
-                dataset);
-
-        //buffer image and create image view for display
-        cal_chart = SwingFXUtils.toFXImage(chart.createBufferedImage(WIDTH, HEIGHT), null);
-        cal_chart_display.setImage(cal_chart);
-        nocaldata.setVisible(false);
-    }
-
-    @FXML
-    private DefaultCategoryDataset formStackedBarData(LocalDate start, LocalDate end) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        HashMap<LocalDate, ArrayList<CalDat>> hash = me.getCalData(start, end);
-
-        if (hash.isEmpty()) {
-            return null;
-        }
-
-        int range = (Math.abs(start.compareTo(end))+1);
-        //int range = (int)(start.datesUntil(end).count())+1;
-        ArrayList<LocalDate> daysOfWeek = new ArrayList<>();
-
-        if (range == 1)
-            daysOfWeek.add(start);
-        else {
-            for (int i = 0; i < range; i++) {
-                daysOfWeek.add(start.with(fieldISO, i + 1));
-            }
-        }
-
-        for (LocalDate date : daysOfWeek) {
-            if (hash.get(date) != null) {
-                for (CalDat dat : hash.get(date)) {
-                    if (dataset.getColumnKeys().contains(date) && dataset.getRowKeys().contains(dat.getMealType())) {
-                        dataset.incrementValue(dat.getCalories(), dat.getMealType(), date.getDayOfWeek());
-                    } else {
-                        dataset.setValue(dat.getCalories(), dat.getMealType(), date.getDayOfWeek());
-                    }
-                }
-            }
-            else {
-                System.out.println("No data for date (" + date + ")");
-                int count = dataset.getColumnCount();
-                DayOfWeek day = daysOfWeek.get(count).getDayOfWeek();
-                dataset.setValue(0, "null", day);
-                dataset.removeRow("null");
-            }
-        }
-        return dataset;
+//        JFreeChart chart = ChartFactory.createBarChart( //produce the bar chart
+//                null,   // chart title
+//                "Day",
+//                "Duration (minutes)",
+//                dataset);
+//
+//        //buffer image and create image view for display
+//        ex_chart = SwingFXUtils.toFXImage(chart.createBufferedImage(WIDTH, HEIGHT), null);
+//        ex_chart_display.setImage(ex_chart);
+//        noexdata.setVisible(false);
     }
 
     @FXML
@@ -323,7 +219,7 @@ public class DataDisplayController {
             return null;
         }
 
-        int range = (Math.abs(start.compareTo(end))+1);
+        int range = 0;/*(int)(start.datesUntil(end).count())+1;*/
         ArrayList<LocalDate> daysOfWeek = new ArrayList<>();
 
         if (range == 1)
@@ -360,7 +256,7 @@ public class DataDisplayController {
             return null;
         }
 
-        int range = (Math.abs(start.compareTo(end))+1);
+        int range = 0;/*(int)(start.datesUntil(end).count())+1;*/
         ArrayList<LocalDate> daysOfWeek = new ArrayList<>();
 
         if (range == 1)
@@ -392,7 +288,7 @@ public class DataDisplayController {
     }
 
     @FXML
-    private void noExData() {
+    private void noData() {
         noexdata.setVisible(true);
         ex_chart_display.setImage(null);
         if (rng_cbx.getValue().equals(DAY)) {
@@ -406,20 +302,6 @@ public class DataDisplayController {
         ex_chart_display.setImage(null);
     }
 
-    @FXML
-    private void noCalData() {
-        nocaldata.setVisible(true);
-        if (rng_cbx.getValue().equals(DAY)) {
-            nocaldata.setX(0);
-            nocaldata.setText("No data for " + chartView);
-        }
-        if (rng_cbx.getValue().equals(WEEK)) {
-            nocaldata.setX(-40);
-            nocaldata.setText("No data for " + chartView.with(fieldISO, 1) + "~" + chartView.with(fieldISO, 7));
-        }
-        cal_chart_display.setImage(null);
-    }
-
     /**************************
      * BUTTON HANDLING EVENTS *
      **************************/
@@ -430,19 +312,10 @@ public class DataDisplayController {
             ex_mode = 2;
             swap_btn.setText("View Distribution");
             createBar(rng_cbx.getValue());
-            cal_chart_display.setVisible(false);
-            pb.setVisible(true);
-            cal_prog.setVisible(true);
-            nocaldata.setVisible(false);
         } else {
             ex_mode = 1;
             swap_btn.setText("View Progress");
             createPie(rng_cbx.getValue());
-            createStackedBar(rng_cbx.getValue());
-            cal_chart_display.setVisible(true);
-            pb.setVisible(false);
-            cal_prog.setVisible(false);
-            warning.setVisible(false);
         }
     }
 
@@ -509,11 +382,11 @@ public class DataDisplayController {
         if (actionEvent.getSource() == datePicker) {
             LocalDate dateToFind = datePicker.getValue();
             if (chartView.isAfter(dateToFind)) {
-                int diff = (Math.abs(chartView.compareTo(dateToFind)));
+                int diff = 0;/*Math.abs((int)(dateToFind.datesUntil(chartView).count()));*/
                 chartView = chartView.minusDays(diff);
             }
             else {
-                int diff = (Math.abs(chartView.compareTo(dateToFind)));
+                int diff = 0;/*(int) (chartView.datesUntil(dateToFind).count());*/
                 chartView = chartView.plusDays(diff);
             }
         }
@@ -543,14 +416,11 @@ public class DataDisplayController {
                     s.getMonth() + " " + s.getDayOfMonth() + " ~ " + e.getMonth() + " " + e.getDayOfMonth() + " " + e.getYear());
         }
 
-        if (swap_btn.getText().equals("View Distribution")) {
+        if (swap_btn.getText().equals("View Distribution"))
             createBar(rng_cbx.getValue());
-            createCalProg();
-        }
-        if (swap_btn.getText().equals("View Progress")) {
+        if (swap_btn.getText().equals("View Progress"))
             createPie(rng_cbx.getValue());
-            createStackedBar(rng_cbx.getValue());
-        }
+        createCalProg();
         datePicker.setValue(chartView);
         reset_btn.setDisable(chartView.equals(LocalDate.now()));
     }
@@ -560,27 +430,15 @@ public class DataDisplayController {
      *******************************/
     @FXML
     private void DummyData() {
-        CalDat cal = new CalDat("Breakfast", 10);
+        CalDat cal = new CalDat("Breakfast", 20);
         me.recordCal(cal);
-        cal = new CalDat("Lunch", 10);
-        me.recordCal(cal);
-        cal = new CalDat("Dinner", 30);
+        cal = new CalDat("Breakfast", 30);
         me.recordCal(cal);
         cal = new CalDat(LocalDate.now().minusDays(1), "Lunch", 40);
         me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(1), "Breakfast", 40);
-        me.recordCal(cal);
         cal = new CalDat(LocalDate.now().minusDays(2), "Lunch", 60);
         me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(2), "Dinner", 80);
-        me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(3), "Lunch", 50);
-        me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(4), "Breakfast", 10);
-        me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(4), "Lunch", 20);
-        me.recordCal(cal);
-        cal = new CalDat(LocalDate.now().minusDays(4), "Dinner", 40);
+        cal = new CalDat(LocalDate.now().minusDays(3), "Lunch", 20);
         me.recordCal(cal);
         cal = new CalDat(LocalDate.now().minusDays(6), "Lunch", 30);
         me.recordCal(cal);
@@ -589,21 +447,17 @@ public class DataDisplayController {
         me.recordEx(ex);
         ex = new ExDat("Balance", 40);
         me.recordEx(ex);
-        ex = new ExDat("Abs", 10);
+        ex = new ExDat(LocalDate.now().minusDays(1), "Cardio", 20,10);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(1), "Cardio", 20, 0);
+        ex = new ExDat(LocalDate.now().minusDays(2), "Cardio", 30,3);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(1), "Endurance", 60, 0);
+        ex = new ExDat(LocalDate.now().minusDays(3), "Cardio", 5,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(2), "Cardio", 30, 0);
+        ex = new ExDat(LocalDate.now().minusDays(4), "Cardio", 80,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(3), "Cardio", 5, 0);
+        ex = new ExDat(LocalDate.now().minusDays(5), "Abs", 20,4);
         me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(4), "Cardio", 80, 0);
-        me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(5), "Abs", 20, 0);
-        me.recordEx(ex);
-        ex = new ExDat(LocalDate.now().minusDays(6), "Cardio", 60, 0);
+        ex = new ExDat(LocalDate.now().minusDays(6), "Cardio", 60,1000);
         me.recordEx(ex);
     }
 }
