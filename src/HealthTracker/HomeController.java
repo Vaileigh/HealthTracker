@@ -64,11 +64,17 @@ public class HomeController extends User {
     private Button btn_workouts;
     @FXML
     private Button goalbtn;
+    public User user;
     @FXML
     private void initialize(){
-        name.setText(getUsername());
+        //dummy
+        User dummy = new User();
+        user=Account.getLoggedIn();
+        dummy.setFirstName("James");
+        dummy.setAbout("hi");
+        name.setText(dummy.getFirstName());
         about.setTextAlignment(TextAlignment.CENTER);
-        about.setText(getAbout());
+        about.setText(dummy.getAbout());
     }
     @FXML
     private void redirect(ActionEvent event){
