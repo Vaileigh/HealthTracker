@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -39,11 +40,15 @@ public class ExerciseController {
     private TextField steps;
     @FXML
     private TextField distance;
+    @FXML
+    private ComboBox rng_cbx;
     private double d;
     private int s;
     private boolean iskm, selectkm,selectmiles;
+    public User user;
     @FXML
     public void initialize(){
+        user=Account.getLoggedIn();
         selectkm=false;
         selectmiles=false;
     }
@@ -69,6 +74,22 @@ public class ExerciseController {
         }
 
         selectmiles=true;
+    }
+    @FXML
+    public void cals(ActionEvent event){
+        if(rng_cbx.getValue().equals("Calories")){
+            try{
+                Parent newRoot = null;
+                newRoot=FXMLLoader.load(getClass().getResource("calories.fxml"));
+                Scene scene = new Scene(newRoot);
+                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                appStage.setScene(scene);
+                appStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @FXML
     private void redirect(ActionEvent event){
@@ -157,7 +178,7 @@ public class ExerciseController {
                 LocalDate date = LocalDate.now();
                 ExDat exDat = new ExDat(date,measurement,d,s);
                 System.out.println(exDat.toString());
-                User.recordEx(exDat);
+                user.recordEx(exDat);
                 System.out.println("Exercise logged");
                 try {
                     Parent newRoot=null;

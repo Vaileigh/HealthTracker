@@ -425,7 +425,6 @@ public class Account extends Application {
                 user[0].setVerified(true);
                 data.updateUser(user[0]);
                 data.saveData();
-                setLoggedIn(user[0]);
                 /**********************************************
                  * User now logs in
                  *
@@ -831,7 +830,7 @@ public class Account extends Application {
 
                                     data.add(user[0]);
                                     data.saveData();
-
+                                    setLoggedIn(user[0]);
                                     // Recipient's email ID needs to be mentioned.
                                     String to = user[0].getEmail();
 

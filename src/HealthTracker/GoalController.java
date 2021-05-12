@@ -26,40 +26,55 @@ public class GoalController extends User{
     private Text gl1,gl2,gl3;
     @FXML
     private Button btn_home, btn_user, btn_group, btn_settings, btn_workouts;
+    public User user;
     @FXML
     public void initialize(){
+        //normally this
+        //user=Account.getLoggedIn();
+        //dummy user
+        user=new User();
+        CalDat calDat = new CalDat("Breakfast", 4000);
+        ExDat exDat = new ExDat(LocalDate.now(), "Cardio", 4000, 10);
+        user.recordCal(calDat);
+        user.recordEx(exDat);
+        user.setStartWeight(54.0);
+        user.setWeightGoal(90.0);
+        user.setPreferredHeightMetric(heightMetric.CM);
+        user.setPreferredWeightMetric(weightMetric.KG);
+        user.setCalGoal(5000);
+        //end of dummy data
         createWeightProgress();
         createStepsProgress();
         createCalProg();
     }
     @FXML
     public void createWeightProgress() {
-        double weight = getStartWeight();
+        double weight = user.getStartWeight();
         pb1.setStyle("-fx-accent: green");
         if(weight/weightGoal>1.0){
-            double over=weight-weightGoal;
+            double over=weight-user.weightGoal;
             String m = "You are over your weight goal by: "+over+getPreferredWeightMetric().name();
             JOptionPane.showMessageDialog(new JFrame(), m, "Error",JOptionPane.ERROR_MESSAGE );
             pb1.setProgress(100.0);
             pb1.setStyle("-fx-accent: red");
-            gl1.setText((weight-weightGoal)+" over "+weightGoal+getPreferredWeightMetric());
+            gl1.setText((weight-user.weightGoal)+" over "+user.weightGoal+user.getPreferredWeightMetric());
 
         }
         else{
-            gl1.setText((weightGoal-weight)+" from "+weightGoal+getPreferredWeightMetric());
-            pb1.setProgress((weight/weightGoal)*100);
+            gl1.setText((user.weightGoal-weight)+" from "+user.weightGoal+" "+user.getPreferredWeightMetric());
+            pb1.setProgress((weight/user.weightGoal));
         }
 
     }
     public void createStepsProgress()
     {
         HashMap<LocalDate, ArrayList<ExDat>> stepsCount = new HashMap<>();
-        LocalDate.now().getDayOfWeek();
-
-        stepsCount=getExData(LocalDate.now(),LocalDate.now().minusDays(7));
+        stepsCount=user.getExData(LocalDate.now().minusDays(7),LocalDate.now());
         int step=0;
-        for(int i=0; i<stepsCount.size();i++){
-            step+=stepsCount.get(i).get(i).steps;
+        for(ArrayList<ExDat> c: stepsCount.values()){
+            for(ExDat e:c){
+                step+=e.steps;
+            }
         }
         double prog = (stepGoal/stepGoal)*100;
         if(step/stepGoal>1.0){
@@ -84,8 +99,8 @@ public class GoalController extends User{
     {
         HashMap<LocalDate, ArrayList<CalDat>> calCount = new HashMap<>();
         double calsTaken = 0;
-
-
+        //between now and 7 days before
+        calCount=user.getCalData(LocalDate.now().minusDays(7), LocalDate.now());
         for (ArrayList<CalDat> cals : calCount.values())
             for (CalDat cal : cals)
                 calsTaken += cal.getCalories();
@@ -93,7 +108,7 @@ public class GoalController extends User{
         double progress = calsTaken / calGoal;
         pb3.setProgress(progress); //create progress bar with data
 
-        gl3.setText((progress * 100) + "%");
+        gl3.setText((progress * 100) + "% from you goal of "+user.getCalGoal()+" calories");
         if (calsTaken / calGoal > 1.0) { //handle values over 100%
             double over = (progress - 1.0) * 100;
             JOptionPane.showMessageDialog(new JFrame(), "You are over by "+over+" calories", "Well done",JOptionPane.ERROR_MESSAGE );
