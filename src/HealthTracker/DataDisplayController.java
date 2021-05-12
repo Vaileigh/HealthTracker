@@ -102,11 +102,11 @@ public class DataDisplayController {
 
     @FXML
     private void initialize() {
-        try {
+        if (Account.getLoggedIn()!=null) {
             me = Account.getLoggedIn();
         }
-        catch(Exception e) {
-            System.out.println("Could not get logged in user: " + e);
+        else {
+            System.out.println("Could not get logged in user");
         }
         System.out.println("User: " + me.getUsername());
         if (me.getCalData().isEmpty() && me.getExData().isEmpty()) {
@@ -116,7 +116,6 @@ public class DataDisplayController {
         createBar(rng_cbx.getValue()); //create graph from user data, default is bar chart
         reset_btn.setDisable(true);
         datePicker.setValue(LocalDate.now());
-        nocaldata.setVisible(false);
     }
 
     /***************************************************
