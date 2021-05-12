@@ -1,5 +1,5 @@
 package HealthTracker;
-/*
+
 
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.collections.FXCollections;
@@ -84,7 +84,7 @@ public class SettingsController implements Initializable {
     private void redirect(ActionEvent event) {
 
 
-        if (event.getSource() == btn_settings) {
+        if (event.getSource() == btn_user) {
             System.out.println("Already on page.");
             return;
         }
@@ -105,8 +105,8 @@ public class SettingsController implements Initializable {
             if (event.getSource() == btn_home) {
                 newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
             }
-            if (event.getSource() == btn_user) {
-                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
+            if (event.getSource() == btn_settings) {
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
             }
 
 
@@ -253,4 +253,3 @@ public class SettingsController implements Initializable {
         });
     }
 }
-*/
