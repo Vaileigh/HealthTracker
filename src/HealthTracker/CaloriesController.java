@@ -1,9 +1,9 @@
 package HealthTracker;
 
-import java.time.LocalDateTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,37 +12,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.control.ChoiceBox;
 
-import java.awt.*;
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CaloriesController implements Initializable {
-
-    @FXML
-    private AnchorPane a_pane;
-
-    @FXML
-    private AnchorPane banner;
-
-    @FXML
-    private Text track;
-
-    @FXML
-    private Text p_name;
 
     @FXML
     private Button btn_group;
@@ -60,47 +41,71 @@ public class CaloriesController implements Initializable {
     private Button btn_settings;
 
     @FXML
-    private Pane content;
-
-    @FXML
-    private Line line;
-
-    @FXML
     private Button submit;
 
     @FXML
     private TextField text_field;
 
     @FXML
-    private Label heading;
-
-    @FXML
-    private Label sub_text;
-
-    @FXML
-    private ImageView img;
-
-    @FXML
     private ChoiceBox meals;
 
-    private Button navButton;
-    private Button pre_navButton;
     LocalDate date = LocalDate.now();
-    User user = new User();
     String Meals[] = {"Breakfast","Lunch","Dinner","Other"};
 
+    //TEMPORARY USER FOR THE PURPOSE OF THE DEMO
+    User user = new User();
+
+    /*
+    INITIALISE THE TEXT FIELD TO BE NUMBER FORMAT AND COMBO BOX TO CONTAIN MEAL TYPE
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         text_field.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
-        navButton = btn_home;
-        pre_navButton = btn_home;
-        btn_home.setStyle("-fx-background-color: orange;");
-        p_name.setText(getNavName(navButton));
         ObservableList<String> a = FXCollections.observableArrayList(Meals);
         meals.setItems(a);
         meals.setValue(a.get(0));
     }
 
+    /*
+    NAVIGATION OPTIONS FOR THE NAV BAR SEEN BELOW
+     */
+    @FXML
+    private void redirect(ActionEvent event){
+        try{
+            Parent newRoot=null;
+            //nav bar
+            if (event.getSource() == btn_home) {
+                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+            }
+            if(event.getSource()==btn_user){
+                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
+            }
+            if (event.getSource() == btn_settings) {
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
+            }
+            if (event.getSource() == btn_group) {
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+            }
+            if (event.getSource() == btn_workouts) {
+                newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
+            }
+            newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
+
+            Scene scene = new Scene(newRoot);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        catch (NumberFormatException n){
+            n.printStackTrace();
+        }
+    }
+
+    /*
+    ACCESSOR FOR RETRIEVING THE CALORIES ENTERED
+     */
     public int getCalories(){
         int calories = 0;
         try {
@@ -112,82 +117,38 @@ public class CaloriesController implements Initializable {
         return calories;
     }
 
+    /*
+    ACCESSOR FOR RETRIEVING THE MEAL TYPE SELECTED
+     */
     public String getMealType(){
-        String MealType = (String) meals.getValue();
-        return MealType;
+        return (String) meals.getValue();
     }
 
-
-    public void submitCalories() {
-        CalDat calories = new CalDat(date, getMealType(), getCalories());
-    }
-
-    private String getNavName(Button navButton) {
-        if (navButton == btn_settings) {
-            return "SETTINGS";
+    /*
+    HANDLE SUBMIT METHOD, CHECKS INFORMATION IS VALID ON SUBMIT BEING CLICKED
+     */
+    public void handleSubmit(){
+        if (text_field.getText().isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(), "Please enter a number in the text field", "Dialog",JOptionPane.ERROR_MESSAGE );
         }
-        if (navButton == btn_user) {
-            return "USER";
-        }
-        if (navButton == btn_home) {
-            return "HOME";
-        }
-        if (navButton == btn_workouts) {
-            return "WORKOUTS";
-        }
-        if (navButton == btn_group) {
-            return "FRIENDS";
-        } else {
-            return "<404 ERROR>";
-        }
-    }
-
-    @FXML
-    public void navigation(ActionEvent event) {
-        try {
-            Parent newRoot = null;
-            if (event.getSource() == btn_user) {
-                btn_user.setStyle("-fx-background-color: orange;");
-                pre_navButton.setStyle("-fx-background-color: white;");
-                p_name.setText(getNavName(btn_user));
-                pre_navButton = btn_user;
-                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
-            } else if (event.getSource() == btn_home) {
-                btn_home.setStyle("-fx-background-color: orange;");
-                pre_navButton.setStyle("-fx-background-color: white;");
-                p_name.setText(getNavName(btn_home));
-                pre_navButton = btn_home;
-                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
-            } else if (event.getSource() == btn_settings) {
-                btn_settings.setStyle("-fx-background-color: orange;");
-                pre_navButton.setStyle("-fx-background-color: white;");
-                p_name.setText(getNavName(btn_settings));
-                pre_navButton = btn_settings;
-                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
-            } else if (event.getSource() == btn_workouts) {
-                btn_workouts.setStyle("-fx-background-color: orange;");
-                pre_navButton.setStyle("-fx-background-color: white;");
-                p_name.setText(getNavName(btn_workouts));
-                pre_navButton = btn_workouts;
-                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
-
-            } else if (event.getSource() == btn_group) {
-                btn_group.setStyle("-fx-background-color: orange;");
-                pre_navButton.setStyle("-fx-background-color: white;");
-                p_name.setText(getNavName(btn_group));
-                pre_navButton = btn_group;
-                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
-
+        submit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String tempMealType = getMealType();
+                int tempCal = getCalories();
+                if (tempCal == 0){
+                    JOptionPane.showMessageDialog(new JFrame(), "Please enter a kcal count above 0", "Dialog",JOptionPane.ERROR_MESSAGE );
+                } else if(tempMealType.isEmpty()){
+                    JOptionPane.showMessageDialog(new JFrame(), "Please select a meal type", "Dialog",JOptionPane.ERROR_MESSAGE );
+                } else {
+                    CalDat calorieRecord = new CalDat(date, tempMealType, tempCal);
+                    System.out.println(calorieRecord.toString());
+                    System.out.println("Data Recorded Successfully");
+                    user.recordCal(calorieRecord);
+                    System.out.println(user.getCalData());
+                }
             }
-            Scene scene = new Scene(newRoot);
-            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            appStage.setScene(scene);
-            appStage.show();
-
-        } catch (IOException e) {
-            System.out.println("Could not redirect:" + e);
-        }
-
-
+        });
     }
+
 }

@@ -26,27 +26,27 @@
         <bottom>
             <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                 <children>
-                    <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                    <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                         <graphic>
                             <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
                         </graphic>
                     </Button>
-                    <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                    <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                         <graphic>
-                            <FontAwesomeIcon glyphName="BICYCLE" onMouseClicked="#navigation" size="2em" text="" />
+                            <FontAwesomeIcon glyphName="BICYCLE" size="2em" text="" />
                         </graphic>
                     </Button>
-                    <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
+                    <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
                         <graphic>
                             <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
                         </graphic>
                     </Button>
-                    <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                    <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                         <graphic>
                             <FontAwesomeIcon glyphName="USER" size="2em" />
                         </graphic>
                     </Button>
-                    <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                    <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                         <graphic>
                             <FontAwesomeIcon glyphName="GEAR" size="2em" />
                         </graphic>
@@ -58,7 +58,7 @@
             <Pane fx:id="content" prefHeight="500.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                 <children>
                     <Line fx:id="line" endX="174.39999389648438" layoutX="197.0" layoutY="292.0" startX="-168.60000610351562" />
-                    <Button fx:id="submit" layoutX="162.0" layoutY="426.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="76.0" text="Submit" />
+                    <Button fx:id="submit" layoutX="162.0" layoutY="426.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="76.0" text="Submit" textAlignment="CENTER" onAction="#handleSubmit"/>
                     <TextField fx:id="text_field" layoutX="56.0" layoutY="374.0" prefHeight="25.0" prefWidth="220.0" promptText="Calories(Kcal)" />
                     <ImageView fx:id="img" fitHeight="159.0" fitWidth="205.0" layoutX="97.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                   <image>
