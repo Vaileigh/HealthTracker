@@ -1,8 +1,13 @@
 package HealthTracker;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -14,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +30,7 @@ import java.util.stream.Collectors;
 
 import java.io.FileWriter;
 
-public class GroupsController implements Initializable{
+public class GroupsController {
 
     @FXML
     private Button btn_settings;
@@ -91,18 +97,18 @@ public class GroupsController implements Initializable{
     public String username = "User5";
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void initialize() {
         navButton = btn_home;
         pre_navButton = btn_home;
-        btn_home.setStyle("-fx-background-color: orange;");
-        page_name.setText(getNavName(navButton));
-
+        btn_home.setStyle("-fx-background-color: white;");
+        btn_group.setStyle("-fx-background-color:orange");
+        page_name.setText("GROUPS");
         layout = content_home;
         pre_layout = content_home;
         layout.setVisible(true);
-        content_group.setVisible(false);
-        content_setting.setVisible(false);
+        content_group.setVisible(true);
+        content_setting.setVisible(true);
         groupDetails_scrollPane.setVisible(false);
 
         // group.addAll(getData());
@@ -520,11 +526,11 @@ public class GroupsController implements Initializable{
         for (int i = 0; i< rows.length; i++){
             cols = rows[i].split(",");
             if (cols[0].equals(groupID)){
-               for (int j = 1; j < cols.length; j++){
-                   if (cols[j].strip().equals(username)){
-                       return true;
-                   }
-               }
+                for (int j = 1; j < cols.length; j++){
+                    if (cols[j].strip().equals(username)){
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -885,46 +891,61 @@ public class GroupsController implements Initializable{
 
 
 
+    @FXML
+    public void navigation(ActionEvent mouseEvent) {
+        try {
+            Parent newRoot=null;
 
-    public void navigation(MouseEvent mouseEvent) {
-        if(mouseEvent.getSource() == btn_user) {
-            btn_user.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_user));
-            pre_navButton = btn_user;
-        }
-        else if(mouseEvent.getSource() == btn_home) {
-            btn_home.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_home));
-            pre_layout.setVisible(false);
-            content_home.setVisible(true);
-            pre_layout = content_home;
-            pre_navButton = btn_home;
-        }
-        else if(mouseEvent.getSource() == btn_settings) {
-            btn_settings.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_settings));
-            pre_layout.setVisible(false);
-            //pre_layout = content_setting;
-            pre_navButton = btn_settings;
-        }
-        else if(mouseEvent.getSource() == btn_workouts) {
-            btn_workouts.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_workouts));
-            pre_navButton = btn_workouts;
-        }
-        else if(mouseEvent.getSource() == btn_group) {
-            btn_group.setStyle("-fx-background-color: orange;");
-            pre_navButton.setStyle("-fx-background-color: white;");
-            page_name.setText(getNavName(btn_group));
-            pre_layout.setVisible(false);
-            content_group.setVisible(true);
-            pre_layout = content_group;
-            pre_navButton = btn_group;
-        }
+            if (mouseEvent.getSource() == btn_user) {
+                btn_user.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_user));
+                pre_navButton = btn_user;
+                newRoot = FXMLLoader.load(getClass().getResource("data_display.fxml"));
+            } else if (mouseEvent.getSource() == btn_home) {
+                btn_home.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_home));
+                pre_layout.setVisible(false);
+                content_home.setVisible(true);
+                pre_layout = content_home;
+                pre_navButton = btn_home;
+                newRoot = FXMLLoader.load(getClass().getResource("home.fxml"));
 
+            } else if (mouseEvent.getSource() == btn_settings) {
+                btn_settings.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_settings));
+                pre_layout.setVisible(false);
+                //pre_layout = content_setting;
+                pre_navButton = btn_settings;
+                newRoot = FXMLLoader.load(getClass().getResource("settings.fxml"));
+
+            } else if (mouseEvent.getSource() == btn_workouts) {
+                btn_workouts.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_workouts));
+                pre_navButton = btn_workouts;
+                newRoot = FXMLLoader.load(getClass().getResource("exercise.fxml"));
+
+            } else if (mouseEvent.getSource() == btn_group) {
+                btn_group.setStyle("-fx-background-color: orange;");
+                pre_navButton.setStyle("-fx-background-color: white;");
+                page_name.setText(getNavName(btn_group));
+                pre_layout.setVisible(false);
+                content_group.setVisible(true);
+                pre_layout = content_group;
+                pre_navButton = btn_group;
+                newRoot = FXMLLoader.load(getClass().getResource("groups.fxml"));
+
+            }
+            Scene scene = new Scene(newRoot);
+            Stage appStage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

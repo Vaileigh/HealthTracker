@@ -17,27 +17,27 @@
          <bottom>
             <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="BICYCLE" onMouseClicked="#navigation" size="2em" text="" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
+                  <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
                      <graphic>
                         <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="2em" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="2em" />
                      </graphic>
@@ -53,7 +53,7 @@
                         <Font name="System Bold Italic" size="33.0" />
                      </font>
                   </Text>
-                  <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FREINDS">
+                  <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FRIENDS">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -92,18 +92,8 @@
       </VBox>
       <VBox fx:id="content_home" layoutY="63.0" prefHeight="572.0" prefWidth="405.0">
          <children>
-            <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="HOME HOME PAGEEEEEE" wrappingWidth="404.79996337890634">
-               <font>
-                  <Font name="System Italic" size="20.0" />
-               </font>
-            </Text>
             <VBox fx:id="content_setting" prefHeight="572.0" prefWidth="405.0">
                <children>
-                  <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTINGS" wrappingWidth="404.79996337890634">
-                     <font>
-                        <Font name="System Italic" size="20.0" />
-                     </font>
-                  </Text>
                </children>
             </VBox>
          </children>
