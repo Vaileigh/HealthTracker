@@ -1,8 +1,9 @@
-Group #1,Helps you,src/Img/donkey.jpg,10,50,private
-Group #2,reach your,src/Img/naj.jpg,10,10,public
-Group #3,fitness goals,src/Img/orange.jpg,1,5,private
+Group #1,Helps you,src/Img/donkey.jpg,5,50,private
+Group #2,reach your,src/Img/naj.jpg,5,10,public
+Group #3,fitness goals,src/Img/orange.jpg,2,5,private
 Group #4,Helps you,src/Img/kids.jpg,10,10,private
-Group #5,reach your,src/Img/lion.jpg,9,15,publicGroup #6,fitness goals,src/Img/park.jpg,9,15,public
-Group #7,Helps you,src/Img/profile.png,1,5,public
-Group #8,reach your,src/Img/spider.jpg,10,10,public
-Group #9,fitness goals,src/Img/unicorn.jpg,10,10,private
+Group #5,reach your,src/Img/lion.jpg,15,15,public
+Group #6,fitness goals,src/Img/park.jpg,6,15,public
+Group #7,Helps you,src/Img/profile.png,5,5,public
+Group #8,reach your,src/Img/spider.jpg,2,10,public
+Group #9,fitness goals,src/Img/unicorn.jpg,5,10,private

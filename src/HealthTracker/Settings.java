@@ -14,7 +14,7 @@ public class Settings extends Application {
         Scene scene = new Scene(root2, 400, 700);
         //scene.getStylesheets().add(getClass().getResource("global.css").toExternalForm());
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();//w
     }
 
 

@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.control.ChoiceBox;
@@ -21,6 +23,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class CaloriesController implements Initializable {
@@ -47,6 +50,11 @@ public class CaloriesController implements Initializable {
     private TextField text_field;
 
     @FXML
+    private Text p_name;
+
+    @FXML
+    private Label sub_text,heading;
+    @FXML
     private ChoiceBox meals;
 
     LocalDate date = LocalDate.now();
@@ -64,6 +72,55 @@ public class CaloriesController implements Initializable {
         ObservableList<String> a = FXCollections.observableArrayList(Meals);
         meals.setItems(a);
         meals.setValue(a.get(0));
+
+
+
+        //COPY
+        if(SettingsController.english_selected){
+            loadLang("en");
+        }else{
+            loadLang("du");
+        }
+
+        //
+        if(SettingsController.text_to_speech){
+            new Thread(() -> new SpeachClass().runSpeach("Calorie Page speech")).start();
+        }
+
+        //
+        changeSize();
+    }
+
+    private void loadLang(String lang){
+        Locale locale = new Locale(lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
+
+
+        //SET ALL TEXT BELOW (ALL THE TEXT THAT CONTAIN IN HOME SCREEN)
+        submit.setText(bundle.getString("submitBtn"));
+        text_field.setPromptText(bundle.getString("hintCalories"));
+        sub_text.setText(bundle.getString("sub_text"));
+        heading.setText(bundle.getString("caloriesHead"));
+        p_name.setText(bundle.getString("p_name"));
+
+    }
+
+    private void changeSize(){
+        if (SettingsController.large_font_size) {
+            submit.setFont(Font.font( 19));
+            text_field.setFont(Font.font( 19));
+            sub_text.setFont(Font.font( 19));
+            heading.setFont(Font.font( 19));
+            p_name.setFont(Font.font( 19));
+            //ADD OTHER TEXTS HERE WHICH NEED TO CHANGE SIZE
+        }else {
+            submit.setFont(Font.font( 15));
+            text_field.setFont(Font.font( 15));
+            sub_text.setFont(Font.font( 15));
+            heading.setFont(Font.font( 15));
+            p_name.setFont(Font.font( 15));
+            //HERE TOO WITH 15 size
+        }
     }
 
     /*

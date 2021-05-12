@@ -11,33 +11,31 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GroupsController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GroupsController">
    <children>
       <BorderPane prefHeight="700.0" prefWidth="400.0">
          <bottom>
             <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="BICYCLE" onMouseClicked="#navigation" size="2em" text="" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
-                     </graphic>
+                  <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
+
                   </Button>
-                  <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="USER" size="2em" />
                      </graphic>
                   </Button>
-                  <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onMouseClicked="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+                  <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>
                         <FontAwesomeIcon glyphName="GEAR" size="2em" />
                      </graphic>
@@ -53,7 +51,7 @@
                         <Font name="System Bold Italic" size="33.0" />
                      </font>
                   </Text>
-                  <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FREINDS">
+                  <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FRIENDS">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
@@ -92,23 +90,13 @@
       </VBox>
       <VBox fx:id="content_home" layoutY="63.0" prefHeight="572.0" prefWidth="405.0">
          <children>
-            <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="HOME HOME PAGEEEEEE" wrappingWidth="404.79996337890634">
-               <font>
-                  <Font name="System Italic" size="20.0" />
-               </font>
-            </Text>
             <VBox fx:id="content_setting" prefHeight="572.0" prefWidth="405.0">
                <children>
-                  <Text fill="#545454" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTINGS" wrappingWidth="404.79996337890634">
-                     <font>
-                        <Font name="System Italic" size="20.0" />
-                     </font>
-                  </Text>
                </children>
             </VBox>
          </children>
       </VBox>
-      <ScrollPane fx:id="groupDetails_scrollPane" layoutY="65.0" prefHeight="635.0" prefWidth="406.0">
+      <ScrollPane fx:id="groupDetails_scrollPane" layoutY="65.0" prefHeight="635.0" prefWidth="405.0">
          <content>
             <VBox prefHeight="622.0" prefWidth="391.0">
                <children>
@@ -121,11 +109,21 @@
                         <Insets left="5.0" right="5.0" />
                      </VBox.margin>
                   </Text>
-                  <HBox prefHeight="16.0" prefWidth="388.0">
+                  <HBox fx:id="groupDetails_functionBar" prefHeight="16.0" prefWidth="388.0">
                      <children>
                         <Text fx:id="groupDetails_current" strokeType="OUTSIDE" strokeWidth="0.0" text="na" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text=" / " />
                         <Text fx:id="groupDetails_max" strokeType="OUTSIDE" strokeWidth="0.0" text="na" />
+                        <Text fx:id="groupDetails_status" strokeType="OUTSIDE" strokeWidth="0.0" text="status">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Button fx:id="btnJoin" mnemonicParsing="false" prefHeight="26.0" prefWidth="99.0" text="Leave Group &gt;">
+                           <HBox.margin>
+                              <Insets left="180.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="10.0" right="5.0" />
@@ -136,11 +134,11 @@
                         <Insets bottom="15.0" left="10.0" right="5.0" />
                      </VBox.margin>
                   </Text>
-                  <HBox prefHeight="518.0" prefWidth="391.0">
+                  <HBox prefHeight="518.0" prefWidth="406.0">
                      <children>
                         <VBox fx:id="groupDetails_request" prefHeight="458.0" prefWidth="143.0" style="-fx-background-color: #C6C6C6;">
                            <HBox.margin>
-                              <Insets />
+                              <Insets left="5.0" />
                            </HBox.margin>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Squad Members">
@@ -151,16 +149,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </Text>
-                              <VBox fx:id="groupDetails_requests" prefHeight="18.0" prefWidth="119.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Requests">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Text>
-                                    <Text fx:id="groupDetails_pendings" strokeType="OUTSIDE" strokeWidth="0.0" text="pending" wrappingWidth="104.53674125671387" />
-                                 </children>
-                              </VBox>
+                              <VBox fx:id="groupDetails_requests" prefHeight="0.0" prefWidth="119.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Administrators">
                                  <VBox.margin>
                                     <Insets top="5.0" />
@@ -181,10 +170,137 @@
                               <Text fx:id="groupDetails_members" strokeType="OUTSIDE" strokeWidth="0.0" text="memberrrrr" wrappingWidth="104.53674125671387" />
                            </children>
                         </VBox>
-                        <VBox prefHeight="456.0" prefWidth="291.0" scaleX="-1.0">
+                        <VBox prefHeight="498.0" prefWidth="242.0" style="-fx-background-color: #DFDEDC;">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Challenges" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 1" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins1" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 15k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 2" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins11" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 20k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 3" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins12" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 25k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 4" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins13" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 30k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 5" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins14" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 35k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 6" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins15" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 40k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 7" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins16" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 45k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 8" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins17" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 50k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Week 9" wrappingWidth="240.0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="5.0" top="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                              <Text fx:id="groupDetails_admins18" strokeType="OUTSIDE" strokeWidth="0.0" text="Let's reached 60k steps a week!!!" wrappingWidth="240.0">
+                                 <VBox.margin>
+                                    <Insets left="5.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
                         </VBox>
                      </children>
                   </HBox>

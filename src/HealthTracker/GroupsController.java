@@ -18,19 +18,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.io. * ;
 import java.util.stream.Collectors;
 
 import java.io.FileWriter;
 
-public class GroupsController {
+public class GroupsController implements Initializable{
 
     @FXML
     private Button btn_settings;
@@ -96,19 +98,52 @@ public class GroupsController {
     private VBox pre_layout;
     public String username = "User5";
 
+    private void loadLang(String lang){
+        Locale locale = new Locale(lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
 
-    @FXML
-    public void initialize() {
+
+        //SET ALL TEXT BELOW (ALL THE TEXT THAT CONTAIN IN HOME SCREEN)
+        //page_name.setText(bundle.getString("homeTitle"));
+
+    }
+
+    private void changeSize(){
+        if (SettingsController.large_font_size) {
+            //name.setFont(Font.font( 19));
+            //ADD OTHER TEXTS HERE WHICH NEED TO CHANGE SIZE
+        }else {
+            //name.setFont(Font.font( 15));
+            //HERE TOO WITH 15 size
+        }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //COPY
+        if(SettingsController.english_selected){
+            loadLang("en");
+        }else{
+            loadLang("du");
+        }
+
+        //
+        if(SettingsController.text_to_speech){
+            new Thread(() -> new SpeachClass().runSpeach("GROUPS Page speech")).start();
+        }
+
+        //
+        changeSize();
+
         navButton = btn_home;
         pre_navButton = btn_home;
-        btn_home.setStyle("-fx-background-color: white;");
-        btn_group.setStyle("-fx-background-color:orange");
-        page_name.setText("GROUPS");
+        btn_home.setStyle("-fx-background-color: orange;");
+        page_name.setText(getNavName(navButton));
+
         layout = content_home;
         pre_layout = content_home;
         layout.setVisible(true);
-        content_group.setVisible(true);
-        content_setting.setVisible(true);
+        content_group.setVisible(false);
+        content_setting.setVisible(false);
         groupDetails_scrollPane.setVisible(false);
 
         // group.addAll(getData());
@@ -127,7 +162,7 @@ public class GroupsController {
             BufferedReader userBufferedReader = new BufferedReader(userFileReader);
             while ((line = userBufferedReader.readLine()) != null) {
                 user_groups = line.split(",");
-                if ((user_groups[0].strip()).equals(username)) {
+                if ((user_groups[0]/*.strip()*/).equals(username)) {
                     break;
                 }
             }
@@ -526,11 +561,11 @@ public class GroupsController {
         for (int i = 0; i< rows.length; i++){
             cols = rows[i].split(",");
             if (cols[0].equals(groupID)){
-                for (int j = 1; j < cols.length; j++){
-                    if (cols[j].strip().equals(username)){
-                        return true;
-                    }
-                }
+               for (int j = 1; j < cols.length; j++){
+                   if (cols[j].strip().equals(username)){
+                       return true;
+                   }
+               }
             }
         }
         return false;

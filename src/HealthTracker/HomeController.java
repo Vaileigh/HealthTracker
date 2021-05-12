@@ -5,6 +5,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -23,6 +25,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.lang.model.element.ElementVisitor;
 import java.io.IOException;
+import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalField;
@@ -75,6 +78,8 @@ public class HomeController extends User {
         name.setText(dummy.getFirstName());
         about.setTextAlignment(TextAlignment.CENTER);
         about.setText(dummy.getAbout());
+        about.setText(getAbout());
+
     }
     @FXML
     private void redirect(ActionEvent event){
@@ -120,6 +125,49 @@ public class HomeController extends User {
             appStage.show();
         } catch (IOException e) {
             System.out.println("Could not redirect:" +e);
+        }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        //COPY
+        if(SettingsController.english_selected){
+            loadLang("en");
+        }else{
+            loadLang("du");
+        }
+
+        //
+        if(SettingsController.text_to_speech){
+            new Thread(() -> new SpeachClass().runSpeach("Home Page speech")).start();
+        }
+
+        //
+        changeSize();
+
+        //
+        if(SettingsController.goal_option){
+            imgGoal.setVisible(false);
+            goalbtn.setVisible(false);
+        }
+    }
+
+    private void loadLang(String lang){
+        Locale locale = new Locale(lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
+
+
+        //SET ALL TEXT BELOW (ALL THE TEXT THAT CONTAIN IN HOME SCREEN)
+        page_name.setText(bundle.getString("homeTitle"));
+
+    }
+
+    private void changeSize(){
+        if (SettingsController.large_font_size) {
+            name.setFont(Font.font( 19));
+            //ADD OTHER TEXTS HERE WHICH NEED TO CHANGE SIZE
+        }else {
+            name.setFont(Font.font( 15));
+            //HERE TOO WITH 15 size
         }
     }
 }

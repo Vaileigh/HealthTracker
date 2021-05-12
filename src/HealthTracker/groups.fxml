@@ -28,9 +28,7 @@
                      </graphic>
                   </Button>
                   <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: orange;">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
-                     </graphic>
+
                   </Button>
                   <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#navigation" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
                      <graphic>

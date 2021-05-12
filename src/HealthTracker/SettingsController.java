@@ -17,9 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.speech.Central;
-import javax.speech.synthesis.Synthesizer;
-import javax.speech.synthesis.SynthesizerModeDesc;
+
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -71,13 +69,13 @@ public class SettingsController implements Initializable {
     @FXML
     private Button btn_settings;
 
-    private Locale locale;
-    private ResourceBundle bundle;
 
-    private static String unit = "km";
-    private static boolean large_font_size = false;
-    private static boolean text_to_speech = false;
-    private static boolean goal_option = true;
+
+    public static String unit = "km";
+    public static boolean large_font_size = false;
+    public static boolean text_to_speech = false;
+    public static boolean goal_option = true;
+    public static boolean english_selected = true;
 
 
     @FXML
@@ -144,8 +142,8 @@ public class SettingsController implements Initializable {
     //lang_du.properties has german
     //lang_en.prop has english
     private void loadLang(String lang){
-        locale = new Locale(lang);
-        bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
+        Locale locale = new Locale(lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
 
 
         //SET ALL TEXT BELOW
@@ -165,49 +163,18 @@ public class SettingsController implements Initializable {
         }else {
             text_to_speech = true;
 
+
+
             // runnable for that thread
-            new Thread(() -> runSpeach()).start();
+
+            //for speech call like this in all controler
+
+            if(SettingsController.text_to_speech){
+                new Thread(() -> new SpeachClass().runSpeach("Track Settings Panel. Text to speech. Larger font. Language. DISABLE goal option. preferred units.")).start();
+            }
         }
     }
 
-    private void runSpeach(){
-        try {
-            // Set property as Kevin Dictionary
-            System.setProperty(
-                    "freetts.voices",
-                    "com.sun.speech.freetts.en.us"
-                            + ".cmu_us_kal.KevinVoiceDirectory");
-
-            // Register Engine
-            Central.registerEngineCentral(
-                    "com.sun.speech.freetts"
-                            + ".jsapi.FreeTTSEngineCentral");
-
-            // Create a Synthesizer
-            Synthesizer synthesizer
-                    = Central.createSynthesizer(
-                    new SynthesizerModeDesc(Locale.US));
-
-            // Allocate synthesizer
-            synthesizer.allocate();
-
-            // Resume Synthesizer
-            synthesizer.resume();
-
-            // Speaks the given text
-            // until the queue is empty.
-            synthesizer.speak("Track Settings Panel. Text to speech. Larger font. Language. DISABLE goal option. preferred units.", null);
-            synthesizer.waitEngineState(
-                    Synthesizer.QUEUE_EMPTY);
-
-            // Deallocate the Synthesizer.
-            synthesizer.deallocate();
-        }
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @FXML
     public void tglAct2(ActionEvent event){
@@ -237,9 +204,10 @@ public class SettingsController implements Initializable {
         cbx1.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)->{
             if(newVal.equals("English")){
                 loadLang("en");
+                english_selected = true;
             }else {
                 loadLang("du");
-
+                english_selected = false;
             }
         });
 
@@ -251,5 +219,29 @@ public class SettingsController implements Initializable {
                 unit = "ml";
             }
         });
+
+        //SETTING VALUES FOR PANEL
+        cbx2.getSelectionModel().select(SettingsController.unit.equals("km")? "Kilometers" : "Miles");
+        cbx1.getSelectionModel().select(SettingsController.english_selected? "English" : "German");
+        tgl1.setSelected(SettingsController.text_to_speech ? true : false);
+        tgl2.setSelected(SettingsController.large_font_size ? true : false);
+        tgl3.setSelected(SettingsController.goal_option ? true : false);
+        //END
+
+
+        //COPY
+        if(SettingsController.english_selected){
+            loadLang("en");
+        }else{
+            loadLang("du");
+        }
+
+        //
+        if(SettingsController.text_to_speech){
+            new Thread(() -> new SpeachClass().runSpeach("Track Settings Panel. Text to speech. Larger font. Language. DISABLE goal option. preferred units.")).start();
+        }
+
+        //
+        changeSize();
     }
 }

@@ -52,7 +52,7 @@
     <ImageView layoutX="270.0" layoutY="506.0" onMousePressed="#redirect" style="-fx-background-color: orange;">
         <Image preserveRatio="true" requestedWidth="90" url="@closeapp.jpg" />
     </ImageView>
-    <ImageView layoutX="40.0" layoutY="506.0" onMousePressed="#redirect" style="-fx-background-color: orange;">
+    <ImageView layoutX="40.0" layoutY="506.0" fx:id="imgGoal" onMousePressed="#redirect" style="-fx-background-color: orange;">
         <Image preserveRatio="true" requestedWidth="90" url="@goalicon.png" />
     </ImageView>
     <Button fx:id="goalbtn" layoutX="50" layoutY="602.0" onAction="#redirect" text="Goals"></Button>

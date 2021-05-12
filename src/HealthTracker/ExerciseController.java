@@ -4,26 +4,35 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import HealthTracker.Account.*;
-public class ExerciseController {
+public class ExerciseController implements Initializable {
+    /*@FXML
+    private Button milesB;*/
     @FXML
-    private Button milesB;
+    private Text page_name,distance_texttit, stepsTxt;
     @FXML
-    private Button kmB;
+    private Text distance_text;
     @FXML
     private Button btn_home;
     @FXML
@@ -51,8 +60,11 @@ public class ExerciseController {
         user=Account.getLoggedIn();
         selectkm=false;
         selectmiles=false;
+
+
     }
-    @FXML
+
+    /*@FXML
     public void km(){
         kmB.setStyle("-fx-background-color: orange;");
         iskm=true;
@@ -74,22 +86,6 @@ public class ExerciseController {
         }
 
         selectmiles=true;
-    }
-    @FXML
-    public void cals(ActionEvent event){
-        if(rng_cbx.getValue().equals("Calories")){
-            try{
-                Parent newRoot = null;
-                newRoot=FXMLLoader.load(getClass().getResource("calories.fxml"));
-                Scene scene = new Scene(newRoot);
-                Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                appStage.setScene(scene);
-                appStage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
     @FXML
     private void redirect(ActionEvent event){
@@ -195,5 +191,61 @@ public class ExerciseController {
 
             }
         });
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        if (SettingsController.unit.equals("km")){
+            distance_text.setText("KM");
+        }else {
+             distance_text.setText("Miles");
+        }
+
+        //COPY
+        if(SettingsController.english_selected){
+            loadLang("en");
+        }else{
+            loadLang("du");
+        }
+
+        //
+        if(SettingsController.text_to_speech){
+            new Thread(() -> new SpeachClass().runSpeach("Excersice Page speech")).start();
+        }
+
+        //
+        changeSize();
+
+    }
+
+
+    private void loadLang(String lang){
+        Locale locale = new Locale(lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("HealthTracker.lang",locale);
+
+
+        //SET ALL TEXT BELOW (ALL THE TEXT THAT CONTAIN IN HOME SCREEN)
+        page_name.setText(bundle.getString("homeTitle"));
+        distance_texttit.setText(bundle.getString("distance_texttit"));
+        submit.setText(bundle.getString("submitBtn"));
+        stepsTxt.setText(bundle.getString("stepsTxt"));
+
+    }
+
+    private void changeSize(){
+        if (SettingsController.large_font_size) {
+            page_name.setFont(Font.font( 19));
+            distance_texttit.setFont(Font.font( 19));
+            submit.setFont(Font.font( 19));
+            stepsTxt.setFont(Font.font( 19));
+
+            //ADD OTHER TEXTS HERE WHICH NEED TO CHANGE SIZE
+        }else {
+            page_name.setFont(Font.font( 15));
+            distance_texttit.setFont(Font.font( 15));
+            submit.setFont(Font.font( 15));
+            stepsTxt.setFont(Font.font( 15));
+            //HERE TOO WITH 15 size
+        }
     }
 }

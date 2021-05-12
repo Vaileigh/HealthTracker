@@ -15,90 +15,96 @@
 <?import javafx.scene.control.DatePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.DataDisplayController">
-        <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-                <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
-                    <font>
-                        <Font name="System Bold Italic" size="33.0" />
-                    </font>
-                </Text>
-                <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR DATA">
-                    <font>
-                        <Font name="System Bold" size="25.0" />
-                    </font>
-                </Text>
-        </AnchorPane>
-        <Text fx:id="custom" fill="BLACK" layoutX="110" layoutY="90" strokeType="OUTSIDE" strokeWidth="0.0" text="Your summary for the">
+    <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+        <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
             <font>
-                <Font name="System" size="12.0" />
+                <Font name="System Bold Italic" size="33.0" />
             </font>
         </Text>
-        <ComboBox fx:id="rng_cbx" value="day" layoutX="230" layoutY="75" onAction="#nav">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="day"/>
-                    <String fx:value="week"/>
-                </FXCollections>
-            </items>
-        </ComboBox>
-        <Text fx:id="cal_txt" fill="BLACK" layoutX="110" layoutY="120" strokeType="OUTSIDE" strokeWidth="0.0" text="Your calorie summary for today">
+        <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="YOUR DATA">
             <font>
-                <Font name="System" size="12.0"/>
+                <Font name="System Bold" size="25.0" />
             </font>
         </Text>
-        <ProgressBar fx:id="pb" progress="0" layoutX="142" layoutY="130"/>
-        <Text fx:id="cal_prog" text="" layoutX="175" layoutY="160">
-            <font>
-                <Font name="System" size = "12.0"/>
-            </font></Text>
-        <Text fx:id="warning" text="" layoutX="115" layoutY="172">
-            <font>
-                <Font name="System" size = "12.0"/>
-            </font>
-        </Text>
-        <Button fx:id="cal_btn" text="Record Calories" layoutX="143" layoutY="180" onAction="#redirect"/>
-        <Separator fx:id="sep" prefWidth="400" layoutY="225"/>
-        <Text fx:id="ex_txt" text="Your exercise summary for today" layoutX="110" layoutY="245">
-            <font>
-                <Font name="System" size = "12.0"/>
-            </font>
-        </Text>
-        <Text fx:id="noexdata" text="No data to display :(" layoutX="120" layoutY="325" fill="darkgray">
-            <font>
-                <Font name="System Bold" size="16.0"/>
-            </font>
-        </Text>
-        <ImageView fx:id="ex_chart_display" layoutY="250"/>
-        <Button fx:id="swap_btn" text="View Distribution" layoutX="143" layoutY="460" onAction="#swapCharts"/>
-        <Button fx:id="ex_btn" text="Record Exercise" layoutX="145" layoutY="520" onAction="#redirect"/>
-        <Button fx:id="prev_btn" text="Back" layoutX="20" layoutY="490" onAction="#nav"/>
-        <Button fx:id="next_btn" text="Next" layoutX="340" layoutY="490" onAction="#nav"/>
-        <Button fx:id="reset_btn" text="Reset Date" layoutX="160" layoutY="490" onAction="#nav"/>
-        <DatePicker fx:id="datePicker" layoutX="20" layoutY="460" onAction="#nav" prefWidth="100"/>
-        <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER" layoutY="636.0">
-            <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
-                <graphic>
-                    <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
-                </graphic>
-            </Button>
-            <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
-                <graphic>
-                    <FontAwesomeIcon glyphName="BICYCLE" size="2em" text="" />
-                </graphic>
-            </Button>
-            <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: white;">
-                <graphic>
-                    <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
-                </graphic>
-            </Button>
-            <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
-                <graphic>
-                    <FontAwesomeIcon glyphName="USER" size="2em" />
-                </graphic>
-            </Button>
-            <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
-                <graphic>
-                    <FontAwesomeIcon glyphName="GEAR" size="2em" />
-                </graphic>
-            </Button>
-        </AnchorPane>
+    </AnchorPane>
+    <Text fx:id="custom" fill="BLACK" layoutX="110" layoutY="90" strokeType="OUTSIDE" strokeWidth="0.0" text="Your summary for the">
+        <font>
+            <Font name="System" size="12.0" />
+        </font>
+    </Text>
+    <ComboBox fx:id="rng_cbx" value="day" layoutX="230" layoutY="75" onAction="#nav">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="day"/>
+                <String fx:value="week"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <Text fx:id="cal_txt" fill="BLACK" layoutX="110" layoutY="120" strokeType="OUTSIDE" strokeWidth="0.0" text="Your calorie summary for today">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+    <ProgressBar fx:id="pb" progress="0" layoutX="142" layoutY="130"/>
+    <ImageView fx:id="cal_chart_display" layoutY="125"/>
+    <Text fx:id="cal_prog" text="" layoutX="175" layoutY="160">
+        <font>
+            <Font name="System" size = "12.0"/>
+        </font></Text>
+    <Text fx:id="warning" text="" layoutX="115" layoutY="172">
+        <font>
+            <Font name="System" size = "12.0"/>
+        </font>
+    </Text>
+    <Text fx:id="nocaldata" text="No data to display :(" layoutX="120" layoutY="200" fill="darkgray">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+    <Button fx:id="cal_btn" text="Record Calories" layoutX="143" layoutY="270" onAction="#redirect"/>
+    <Separator fx:id="sep" prefWidth="400" layoutY="300"/>
+    <Text fx:id="ex_txt" text="Your exercise summary for today" layoutX="110" layoutY="320">
+        <font>
+            <Font name="System" size = "12.0"/>
+        </font>
+    </Text>
+    <Text fx:id="noexdata" text="No data to display :(" layoutX="120" layoutY="400" fill="darkgray">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+    <ImageView fx:id="ex_chart_display" layoutY="325"/>
+    <Button fx:id="swap_btn" text="View Distribution" layoutX="143" layoutY="535" onAction="#swapCharts"/>
+    <Button fx:id="ex_btn" text="Record Exercise" layoutX="145" layoutY="595" onAction="#redirect"/>
+    <Button fx:id="prev_btn" text="Back" layoutX="20" layoutY="595" onAction="#nav"/>
+    <Button fx:id="next_btn" text="Next" layoutX="340" layoutY="595" onAction="#nav"/>
+    <Button fx:id="reset_btn" text="Reset Date" layoutX="160" layoutY="565" onAction="#nav"/>
+    <DatePicker fx:id="datePicker" layoutX="20" layoutY="535" onAction="#nav" prefWidth="100"/>
+    <AnchorPane prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER" layoutY="636.0">
+        <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GROUP" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_workouts" layoutX="248.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="BICYCLE" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_home" layoutX="160.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="88.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="HOME" size="2em" text="" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_user" layoutX="81.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: orange;">
+            <graphic>
+                <FontAwesomeIcon glyphName="USER" size="2em" />
+            </graphic>
+        </Button>
+        <Button fx:id="btn_settings" layoutX="2.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">
+            <graphic>
+                <FontAwesomeIcon glyphName="GEAR" size="2em" />
+            </graphic>
+        </Button>
+    </AnchorPane>
 </AnchorPane>

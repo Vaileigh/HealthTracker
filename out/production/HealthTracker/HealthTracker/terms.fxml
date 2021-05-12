@@ -9,10 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.ProgressBar?>
-<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.GoalController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HealthTracker.TermsController">
     <AnchorPane fx:id="banner" prefHeight="64.0" prefWidth="400.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
         <Text fx:id="title" fill="#ff660e" layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TRACK">
             <font>
@@ -20,34 +17,23 @@
             </font>
 
         </Text>
-        <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GOALS">
+        <Text fx:id="page_name" fill="WHITE" layoutX="203.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TERMS">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
         </Text>
     </AnchorPane>
-    <ImageView layoutX="130" layoutY="130">
-        <Image preserveRatio="true" requestedWidth="140" url="@goalicon.png" />
-    </ImageView>
-    <Separator layoutX="8.0" layoutY="240" prefHeight="13.0" prefWidth="379.0" />
-    <Text fx:id="gl1" layoutX="50" layoutY="330" text="something">
+    <Text fill="BLACK" layoutX="40.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Terms and Conditions" textAlignment="LEFT">
         <font>
-            <Font name="System" size="15.0" />
+            <Font name="System Bold" size="33" />
         </font>
     </Text>
-    <Text fx:id="gl2" layoutX="50" layoutY="430">
+    <TextArea layoutX="25.0" layoutY="184.0" maxHeight="600" maxWidth="368.0" prefHeight="429.0" prefRowCount="10" prefWidth="368.0" text="Suspendisse et accumsan risus.  Nunc dapibus, diam a scelerisque euismod, massa magna auctor purus, non dignissim diam erat nec est. Curabitur nec molestie tellus, vitae lobortis arcu. Morbi vehicula feugiat lacus, ut porttitor magna sodales quis. Pellentesque non blandit nunc. Proin in metus fermentum, laoreet magna egestas, condimentum sapien. Vestibulum condimentum, nibh eget finibus pulvinar, ex mi dapibus ligula, vitae dapibus ipsum urna sed lacus. Etiam pellentesque eget ante eu dictum. Sed eu tempor lectus. Nulla sed placerat arcu. Maecenas maximus commodo ipsum, eget tempus quam congue sit amet. Mauris aliquam tellus ac augue iaculis, rhoncus laoreet elit pellentesque. Maecenas rutrum accumsan libero non dapibus.  Quisque facilisis interdum augue, ac facilisis quam fringilla non. Donec massa neque, sollicitudin nec dui sit amet, rhoncus lobortis enim. Nunc dictum mauris eget dolor euismod dignissim quis vel libero. Donec bibendum rhoncus odio, ut vulputate ipsum molestie vitae. Praesent ac diam sit amet lacus porta placerat vitae at erat. Vestibulum hendrerit gravida sem. Nunc ut libero nec nisl cursus placerat. Proin suscipit tincidunt mollis. In porta vel nunc a facilisis. Phasellus sed nulla quis lorem egestas tempor sed et nisi. Pellentesque cursus " wrapText="true">
         <font>
-            <Font name="System" size="15.0" />
+            <Font name="System" size="18" />
         </font>
-    </Text>
-    <Text fx:id="gl3" layoutX="50" layoutY="530">
-        <font>
-            <Font name="System" size="15.0" />
-        </font>
-    </Text>
-    <ProgressBar fx:id="pb1" progress="100" layoutX="50" layoutY="350" prefWidth="300" prefHeight="30"/>
-    <ProgressBar fx:id="pb2" progress="100" layoutX="50" layoutY="450" prefWidth="300" prefHeight="30"/>
-    <ProgressBar fx:id="pb3" progress="100" layoutX="50" layoutY="550" prefWidth="300" prefHeight="30"/>
+    </TextArea>
+    <Separator layoutX="8.0" layoutY="360" prefHeight="13.0" prefWidth="379.0" />
 
     <AnchorPane layoutY="636.0" prefHeight="64.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <Button fx:id="btn_group" layoutX="327.0" mnemonicParsing="false" onAction="#redirect" prefHeight="64.0" prefWidth="78.0" style="-fx-background-color: white;">

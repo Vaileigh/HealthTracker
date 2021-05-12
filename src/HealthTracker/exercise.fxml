@@ -35,12 +35,11 @@
     <ImageView fx:id="eximage" layoutX="130" layoutY="130">
         <Image url="@exicon.png" requestedWidth="150" preserveRatio="true"/>
     </ImageView>
-    <Text layoutX="40" layoutY="400" text="Distance"></Text>
+    <Text fx:id="distance_texttit" layoutX="40" layoutY="400" text="Distance"></Text>
     <TextField fx:id="distance" layoutX="40" layoutY="420"/>
-    <Button fx:id="milesB" layoutX="290" layoutY="420" onMousePressed="#miles" text="Miles">
-    </Button>
-    <Button fx:id="kmB" layoutX="350" layoutY="420" onMousePressed="#km" text="KM"></Button>
-    <Text layoutX="40" layoutY="500" text="Steps"></Text>
+
+    <Text fx:id="distance_text" layoutX="350" layoutY="420"  text="KM"></Text>
+    <Text fx:id="stepsTxt" layoutX="40" layoutY="500" text="Steps"></Text>
     <TextField fx:id="steps" layoutX="40" layoutY="520"/>
     <Button fx:id="submit" layoutX="135.0" layoutY="580.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="131.0" text="Submit" onAction="#handleSubmit"/>
 
