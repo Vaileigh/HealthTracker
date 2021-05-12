@@ -5,19 +5,18 @@ import java.time.LocalDate;
 class ExDat {
     LocalDate date;
     String exerciseType;
-    double duration;
+    double distance;
     int steps;
     ExDat(LocalDate ld, String et, double d, int s) {
         this.date = ld;
-        this.exerciseType = et;
-        this.duration = d;
+        this.distance = d;
         this.steps=s;
     }
 
     ExDat(String et, double d) {
         this.date = LocalDate.now();
         this.exerciseType = et;
-        this.duration = d;
+        this.distance = d;
     }
 
     LocalDate getDate() {
@@ -36,16 +35,16 @@ class ExDat {
         this.exerciseType = et;
     }
 
-    double getDuration() {
-        return this.duration;
+    double getDistance() {
+        return this.distance;
     }
 
-    void setDuration(double d) {
-        this.duration = d;
+    void setDistance(double d) {
+        this.distance = d;
     }
 
     @Override
     public String toString() {
-        return "DATE: " + date + " EXTYPE: " + exerciseType + " DURATION: " + duration;
+        return "DATE: " + date + " EXTYPE: " + exerciseType + " DURATION: " + distance;
     }
 }

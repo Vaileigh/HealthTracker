@@ -102,13 +102,20 @@ public class DataDisplayController {
 
     @FXML
     private void initialize() {
-        System.out.println(me.getUsername() + me.getPassword());
-        DummyData();
+        if (Account.getLoggedIn()!=null) {
+            me = Account.getLoggedIn();
+        }
+        else {
+            System.out.println("Could not get logged in user");
+        }
+        System.out.println("User: " + me.getUsername());
+        if (me.getCalData().isEmpty() && me.getExData().isEmpty()) {
+            DummyData();
+        }
         createCalProg(); //creating progress bar from user data
         createBar(rng_cbx.getValue()); //create graph from user data, default is bar chart
         reset_btn.setDisable(true);
         datePicker.setValue(LocalDate.now());
-        nocaldata.setVisible(false);
     }
 
     /***************************************************
@@ -148,6 +155,7 @@ public class DataDisplayController {
             pb.setStyle("-fx-accent: green");
         }
         pb.setProgress(progress);
+        System.out.println(me.getCalData());
     }
 
     @FXML
@@ -535,13 +543,14 @@ public class DataDisplayController {
                     s.getMonth() + " " + s.getDayOfMonth() + " ~ " + e.getMonth() + " " + e.getDayOfMonth() + " " + e.getYear());
         }
 
-        if (swap_btn.getText().equals("View Distribution"))
+        if (swap_btn.getText().equals("View Distribution")) {
             createBar(rng_cbx.getValue());
+            createCalProg();
+        }
         if (swap_btn.getText().equals("View Progress")) {
             createPie(rng_cbx.getValue());
             createStackedBar(rng_cbx.getValue());
         }
-        createCalProg();
         datePicker.setValue(chartView);
         reset_btn.setDisable(chartView.equals(LocalDate.now()));
     }
